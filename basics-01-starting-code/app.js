@@ -3,7 +3,8 @@ const app = Vue.createApp({
     return {
       goalA: 'Learn reactive frontend design',
       goalB: 'Master Vue',
-      vueLink: 'https://vuejs.org'
+      vueLink: 'https://vuejs.org',
+      sampleTitle: '<h2>This was made with Vue!</h2>'
     };
   },
   methods: {
