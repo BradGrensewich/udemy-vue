@@ -6,7 +6,10 @@ const app = Vue.createApp({
     };
   },
   methods: {
-   
+    outputFullname() {
+      console.log('running again');
+      return this.name + ' ' + 'Grensewich';
+    },
     add(num) {
       this.counter = this.counter + num;
     },
