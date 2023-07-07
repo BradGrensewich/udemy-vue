@@ -24,6 +24,7 @@
       <button v-on:click="countDown(1)" v-on:click.right="countUp(2)">
         Remove
       </button>
+      <p v-once>Starting Counter: {{ counter }}</p>
       <p>Result: {{ counter }}</p>
       <input
         type="text"
