@@ -4,6 +4,7 @@ const app = Vue.createApp({
       counter: 0,
       name: "",
       lastName: "",
+      exampleMessage: "This is just to show the v-bind shorthand"
       //fullName: ''
     };
   },
