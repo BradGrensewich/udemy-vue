@@ -2,7 +2,8 @@ const app = Vue.createApp({
   data() {
     return { 
       goals: [],
-      enteredGoalValue: '' 
+      enteredGoalValue: '',
+      size: 5 
     };
   },
   methods: {
