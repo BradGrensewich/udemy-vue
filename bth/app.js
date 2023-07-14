@@ -14,23 +14,31 @@ const app = Vue.createApp({
 		},
 	},
 });
+const app2 = Vue.createApp({
+	data() {
+		return {
+			meal: 'pizza',
+		};
+	},
+});
 
 app.mount('#app');
+app2.mount('#app2');
 
 // ...
 
 const data = {
 	message: 'Hello',
-  longMessage: 'Hello, world'
+	longMessage: 'Hello, world',
 };
 
 const handler = {
-  set(target, key, value) {
-    if (key === 'message') {
-      target.longMessage = value + " is a nice girl"
-    }
-    target.message = value;
-  }
+	set(target, key, value) {
+		if (key === 'message') {
+			target.longMessage = value + ' is a nice girl';
+		}
+		target.message = value;
+	},
 };
 
 const proxy = new Proxy(data, handler);
