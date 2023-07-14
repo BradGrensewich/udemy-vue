@@ -96,7 +96,7 @@ const app = Vue.createApp({
 		},
 		coolDownMessage() {
 			if (this.specialCoolingDown) {
-				return `Ready in ${this.specialCooldown} turns'`;
+				return `Ready in ${this.specialCooldown} turns`;
 			} else {
 				return 'SPECIAL ATTACK';
 			}
