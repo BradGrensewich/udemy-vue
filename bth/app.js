@@ -11,8 +11,32 @@ const app = Vue.createApp({
 		// },
 		setText() {
 			//this.message = this.currentUserInput;
-      this.message = this.$refs.userText.value;
+			this.message = this.$refs.userText.value;
 		},
+	},
+	beforeCreate() {
+		console.log('before create');
+	},
+	created() {
+		console.log('created');
+	},
+	beforeMount() {
+		console.log('before mount');
+	},
+	mounted() {
+		console.log('mounted');
+	},
+	beforeUpdate() {
+		console.log('before update');
+	},
+	updated() {
+		console.log('updated');
+	},
+	beforeUnmount() {
+		console.log('before unmount');
+	},
+	unmounted() {
+		console.log('unmounted');
 	},
 });
 const app2 = Vue.createApp({
@@ -28,6 +52,11 @@ const app2 = Vue.createApp({
 
 app.mount('#app');
 app2.mount('#app2');
+
+//this is just for demo purposes
+setTimeout(function() {
+  app.unmount();
+}, 3000);
 
 // ...
 
