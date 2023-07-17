@@ -2,8 +2,8 @@
     <section>
         <h2>My friends</h2>
         <ul>
-            <li></li>
-            <li></li>
+            <friend-contact></friend-contact>
+            <friend-contact></friend-contact>
         </ul>
     </section>
 </template>
