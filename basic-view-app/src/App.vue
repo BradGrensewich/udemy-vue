@@ -1,27 +1,28 @@
 <template>
 	<section>
 		<header>
-            <h1>My friends</h1>
-        </header>
+			<h1>My friends</h1>
+		</header>
 		<ul>
-			<friend-contact name="Brad Grensewich" phone-number="0702519921" email="brad@localhost.com"></friend-contact>
-			<friend-contact name="Vy Ngo" phone-number="911" email="vy@localhost.com"></friend-contact>
+			<friend-contact
+				name="Brad Grensewich"
+				phone-number="0702519921"
+				email="brad@localhost.com"
+                is-favorite="0"
+			></friend-contact>
+			<friend-contact
+				name="Vy Ngo"
+				phone-number="911"
+				email="vy@localhost.com"
+                is-favorite="1"
+			></friend-contact>
 		</ul>
 	</section>
 </template>
 <script>
 export default {
 	data() {
-		return {
-			friends: [				
-				{
-					id: 'vy',
-					name: 'Vy Ngo',
-					phone: '911',
-					email: 'vy@localhost.com',
-				},
-			],
-		};
+		return {};
 	},
 };
 </script>
