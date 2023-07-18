@@ -4,8 +4,8 @@
             <h1>My friends</h1>
         </header>
 		<ul>
-			<friend-contact></friend-contact>
-			<friend-contact></friend-contact>
+			<friend-contact name="Brad Grensewich" phone-number="0702519921" email="brad@localhost.com"></friend-contact>
+			<friend-contact name="Vy Ngo" phone-number="911" email="vy@localhost.com"></friend-contact>
 		</ul>
 	</section>
 </template>
@@ -13,13 +13,7 @@
 export default {
 	data() {
 		return {
-			friends: [
-				{
-					id: 'brad',
-					name: 'Brad Grensewich',
-					phone: '0702519921',
-					email: 'brad@localhost.com',
-				},
+			friends: [				
 				{
 					id: 'vy',
 					name: 'Vy Ngo',
@@ -32,6 +26,7 @@ export default {
 };
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 * {
 	box-sizing: border-box;
 }
