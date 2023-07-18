@@ -4,25 +4,26 @@
 			<h1>My friends</h1>
 		</header>
 		<ul>
-			<friend-contact
-				name="Brad Grensewich"
-				phone-number="0702519921"
-				email="brad@localhost.com"
-                is-favorite="0"
-			></friend-contact>
-			<friend-contact
-				name="Vy Ngo"
-				phone-number="911"
-				email="vy@localhost.com"
-                is-favorite="1"
-			></friend-contact>
+			<friend-contact 
+				v-for="friend in friends"
+				:key="friend.id"
+				:name="friend.name"
+				:phone-number="friend.phone"
+				:email="friend.email"
+				:is-favorite="true"                
+			></friend-contact>			
 		</ul>
 	</section>
 </template>
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			friends: [
+				{id: 'brad', name: 'Brad Grensewich', phone: '0702519921', email: 'brad@localhost.com'},
+				{id: 'vy', name: 'Vy Ngo', phone: '911', email: 'vy@localhost.com', isFavorite: true},
+			]		
+		};
 	},
 };
 </script>
