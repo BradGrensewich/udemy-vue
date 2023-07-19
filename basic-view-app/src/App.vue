@@ -4,14 +4,16 @@
 			<h1>My friends</h1>
 		</header>
 		<ul>
-			<friend-contact 
+			<friend-contact
 				v-for="friend in friends"
 				:key="friend.id"
+				:id="friend.id"
 				:name="friend.name"
 				:phone-number="friend.phone"
 				:email="friend.email"
-				:is-favorite="true"                
-			></friend-contact>			
+				:is-favorite="friend.isFavorite"
+				@toggle-favorite="onToggleFavorite"
+			></friend-contact>
 		</ul>
 	</section>
 </template>
@@ -20,11 +22,31 @@ export default {
 	data() {
 		return {
 			friends: [
-				{id: 'brad', name: 'Brad Grensewich', phone: '0702519921', email: 'brad@localhost.com'},
-				{id: 'vy', name: 'Vy Ngo', phone: '911', email: 'vy@localhost.com', isFavorite: true},
-			]		
+				{
+					id: 'brad',
+					name: 'Brad Grensewich',
+					phone: '0702519921',
+					email: 'brad@localhost.com',
+					isFavorite: false,
+				},
+				{
+					id: 'vy',
+					name: 'Vy Ngo',
+					phone: '911',
+					email: 'vy@localhost.com',
+					isFavorite: true,
+				},
+			],
 		};
 	},
+	methods: {
+		onToggleFavorite(friendId) {
+			const identified = this.friends.find(function(friend) {
+				return friend.id === friendId;
+			});
+			identified.isFavorite = !identified.isFavorite;
+		}
+	}
 };
 </script>
 <style>
