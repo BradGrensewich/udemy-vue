@@ -2,8 +2,8 @@
 	<section>
 		<header>
 			<h1>My friends</h1>
-		</header>
-		<ul>
+		</header>		
+		<ul>			
 			<friend-contact
 				v-for="friend in friends"
 				:key="friend.id"
@@ -11,6 +11,7 @@
 				@toggle-favorite="onToggleFavorite"
 			></friend-contact>
 		</ul>
+		<new-friend @add-friend="onAddFriend"></new-friend>
 	</section>
 </template>
 <script>
@@ -41,6 +42,15 @@ export default {
 				return friend.id === friendId;
 			});
 			identified.isFavorite = !identified.isFavorite;
+		},
+		onAddFriend(id, name, phone, email) {
+			this.friends.push({
+				id: id, 
+				name: name,
+				phoneNumber: phone,
+				email: email,
+				isFavorite: false
+			});
 		}
 	}
 };
@@ -109,5 +119,18 @@ header {
 	background-color: #ec3169;
 	border-color: #ec3169;
 	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
