@@ -7,11 +7,7 @@
 			<friend-contact
 				v-for="friend in friends"
 				:key="friend.id"
-				:id="friend.id"
-				:name="friend.name"
-				:phone-number="friend.phone"
-				:email="friend.email"
-				:is-favorite="friend.isFavorite"
+				v-bind="friend"
 				@toggle-favorite="onToggleFavorite"
 			></friend-contact>
 		</ul>
@@ -25,14 +21,14 @@ export default {
 				{
 					id: 'brad',
 					name: 'Brad Grensewich',
-					phone: '0702519921',
+					phoneNumber: '0702519921',
 					email: 'brad@localhost.com',
 					isFavorite: false,
 				},
 				{
 					id: 'vy',
 					name: 'Vy Ngo',
-					phone: '911',
+					phoneNumber: '911',
 					email: 'vy@localhost.com',
 					isFavorite: true,
 				},
