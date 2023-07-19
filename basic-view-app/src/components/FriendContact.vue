@@ -16,9 +16,9 @@
 export default {
 	//props: ['name', 'phoneNumber', 'email', 'isFavorite'],
 	props: {
-		id : {
+		id: {
 			type: String,
-			required: true
+			required: true,
 		},
 		name: {
 			type: String,
@@ -35,12 +35,22 @@ export default {
 		isFavorite: {
 			type: Boolean,
 			required: false,
-			default: false,			
+			default: false,
+		},
+	},
+	//emits: ['toggle-favorite'],
+	emits: {
+		'toggle-favorite': function (id) {
+			if (id) {
+				return true;
+			} else {
+				return false;
+			}
 		},
 	},
 	data() {
 		return {
-			detailsAreVisible: false,			
+			detailsAreVisible: false,
 		};
 	},
 	methods: {
@@ -48,7 +58,7 @@ export default {
 			this.detailsAreVisible = !this.detailsAreVisible;
 		},
 		toggleFavorite() {
-			this.$emit('toggle-favorite', this.id)
+			this.$emit('toggle-favorite', this.id);
 		},
 	},
 };
