@@ -18,6 +18,7 @@
 				:key="friend.id"
 				v-bind="friend"
 				@toggle-favorite="onToggleFavorite"
+				@delete-friend="deleteFriend"
 			></friend-contact>
 		</ul>
 	</section>
@@ -66,6 +67,11 @@ export default {
 		toggleNewFriend() {
 			this.wantToAddFriend = !this.wantToAddFriend;
 		},
+		deleteFriend(id) {
+			this.friends = this.friends.filter(function(friend) {
+				return friend.id !== id;
+			});
+		}
 	},
 };
 </script>
