@@ -1,49 +1,43 @@
 <template>
-	<form @submit.prevent="addFriend">
-        <div>
-            <label for="full-name">Full Name</label>
-            <input type="text" name="full-name" id="full-name" v-model="name" />
-        </div>
-        <div>
-            <label for="phone">Phone Number</label>
-            <input type="text" name="phone" id="phone" v-model="phone" />
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" v-model="email" />
-        </div>
-        <button>Create New Friend</button>   
-        
-        
-        
+	<form @submit.prevent="submitData">
+		<div>
+			<label for="name">Name</label>
+			<input type="text" v-model="enteredName" />
+		</div>
+		<div>
+			<label for="phone">Phone</label>
+			<input type="tel" v-model="enteredPhone" />
+		</div>
+		<div>
+			<label for="email">E-mail</label>
+			<input type="email" v-model="enteredEmail" />
+		</div>
+		<div>
+			<button>Add Contact</button>
+		</div>
 	</form>
 </template>
 
 <script>
 export default {
+	emits: ['add-contact'],
 	data() {
 		return {
-            id: '',
-            name: '',
-			phone: '',			
-			email: '',
-			
+			enteredName: '',
+			enteredPhone: '',
+			enteredEmail: '',
 		};
 	},
-	emits: {
-        'add-friend': function(id, name, phone, email) {
-            if (id && name && phone && email) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    },
+
 	methods: {
-        addFriend() {
-            this.id = this.name
-            this.$emit('add-friend', this.id, this.name, this.phone, this.email)
-        }
-    },
+		submitData() {
+			this.$emit(
+				'add-contact',
+				this.enteredName,
+				this.enteredPhone,
+				this.enteredEmail
+			);
+		},
+	},
 };
 </script>

@@ -2,8 +2,17 @@
 	<section>
 		<header>
 			<h1>My friends</h1>
-		</header>		
-		<ul>			
+		</header>
+		<new-friend
+			v-if="wantToAddFriend"
+			@add-contact="addContact"
+		></new-friend>
+		<li v-else>
+			<button @click="toggleNewFriend" id="shower">
+				Add a New Friend
+			</button>
+		</li>
+		<ul>
 			<friend-contact
 				v-for="friend in friends"
 				:key="friend.id"
@@ -11,13 +20,13 @@
 				@toggle-favorite="onToggleFavorite"
 			></friend-contact>
 		</ul>
-		<new-friend @add-friend="onAddFriend"></new-friend>
 	</section>
 </template>
 <script>
 export default {
 	data() {
 		return {
+			wantToAddFriend: false,
 			friends: [
 				{
 					id: 'brad',
@@ -38,21 +47,26 @@ export default {
 	},
 	methods: {
 		onToggleFavorite(friendId) {
-			const identified = this.friends.find(function(friend) {
+			const identified = this.friends.find(function (friend) {
 				return friend.id === friendId;
 			});
 			identified.isFavorite = !identified.isFavorite;
 		},
-		onAddFriend(id, name, phone, email) {
-			this.friends.push({
-				id: id, 
+		addContact(name, phone, email) {
+			const newFriend = {
+				id: new Date().toISOString(),
 				name: name,
 				phoneNumber: phone,
 				email: email,
-				isFavorite: false
-			});
-		}
-	}
+				isFavorite: false,
+			};
+			this.friends.push(newFriend);
+			this.toggleNewFriend();
+		},
+		toggleNewFriend() {
+			this.wantToAddFriend = !this.wantToAddFriend;
+		},
+	},
 };
 </script>
 <style>
@@ -87,7 +101,8 @@ header {
 	list-style: none;
 }
 
-#app li {
+#app li,
+#app form {
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 	margin: 1rem auto;
 	border-radius: 10px;
@@ -121,16 +136,16 @@ header {
 	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
 }
 #app input {
-  font: inherit;
-  padding: 0.15rem;
+	font: inherit;
+	padding: 0.15rem;
 }
 #app label {
-  font-weight: bold;
-  margin-right: 1rem;
-  width: 7rem;
-  display: inline-block;
+	font-weight: bold;
+	margin-right: 1rem;
+	width: 7rem;
+	display: inline-block;
 }
 #app form div {
-  margin: 1rem 0;
+	margin: 1rem 0;
 }
 </style>
