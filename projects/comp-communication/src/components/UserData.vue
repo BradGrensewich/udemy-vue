@@ -1,32 +1,29 @@
 <template>
-    <form @submit.prevent="updateUser">
-        <div>
-            <label>Name</label>
-            <input type="text" v-model="enteredName">
-        </div>
-        <div>
-            <label>Age</label>
-            <input type="text" v-model="enteredAge">
-        </div>
-        <button>Update</button>
-    </form>    
+    <section>
+        <form @submit.prevent="updateData">
+            <input type="text" name="name" placeholder="Your name" v-model.lazy="enteredName">
+            <input type="text" name="age" placeholder="Your age" v-model.lazy="enteredAge">
+            <button>Set User Data</button> 
+        </form>      
+    </section>
+
 </template>
 
 <script>
 export default {
-    emits: ['update-user'],
+    emits: ['set-data'],
     data() {
         return {
             enteredName: '',
             enteredAge: ''
-        }
+        }        
     },
     methods: {
-        updateUser() {
-            this.$emit('update-user', this.enteredName, this.enteredAge)            
+        updateData() {
+            this.$emit('set-data', this.enteredName, this.enteredAge);
         }
     }
+
 }
 </script>
 
-<style></style>

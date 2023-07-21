@@ -1,24 +1,23 @@
 <template>
-	<div>
-		<h1>Current User:</h1>
-		<h2>{{ userName }}</h2>
-		<h3>{{ userAge }}</h3>
-	</div>
+    <section>
+        <h2>{{ name }}</h2>
+        <h3>{{ age }}</h3>
+    </section>
+
 </template>
 
 <script>
 export default {
-	props: {
-		userName: {
-			type: String,
-			required: true,
-		},
-		userAge: {
-			type: String,
-			required: true,
-		},
-	},
-};
+    props: {
+        name: {
+            type: String,
+            required: true
+        }, 
+        age: {
+            type: Number,
+            required: true
+        }
+    }
+}
 </script>
 
-<style></style>

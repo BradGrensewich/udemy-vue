@@ -1,25 +1,28 @@
 <template>
-    <section>
+    <div>
         <active-user v-bind="user"></active-user>
-        <user-data @update-user="updateUser"></user-data>
-    </section>
+        <user-data @set-data="setUserData"></user-data>
+    </div>
+
 </template>
 
 <script>
-export default {
+export default{
     data() {
         return {
             user: {
-                userName: '',
-                userAge: ''
+                name: 'B',
+                age: 7
             }
-            
+           
         }
     },
     methods: {
-        updateUser(name, age) {            
-            this.user.userName = name;
-            this.user.userAge = age;            
+        setUserData(name, age) {
+            this.user = {
+                name: name,
+                age: +age
+            }
         }
     }
 
@@ -27,5 +30,14 @@ export default {
 </script>
 
 <style>
-
+html {
+    font-family: sans-serif;
+}
+section {
+    margin: 2rem auto;
+    max-width: 40rem;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
 </style>

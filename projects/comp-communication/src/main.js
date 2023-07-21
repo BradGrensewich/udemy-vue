@@ -5,8 +5,8 @@ import UserData from './components/UserData.vue'
 
 const app = createApp(App);
 
-app.component('active-user', ActiveUser)
-app.component('user-data', UserData)
+app.component('active-user', ActiveUser);
+app.component('user-data', UserData);
 
 app.mount('#app');
 
