@@ -5,15 +5,13 @@
       :key="topic.id"
       :id="topic.id"
       :topic-name="topic.title"
-      :description="topic.description"
-      @select-topic="$emit('select-topic', $event)"
+      :description="topic.description"      
     ></knowledge-element>
   </ul>
 </template>
 
 <script>
 export default {
-  inject: ['topics'],
-  emits: ['select-topic']
+  inject: ['topics'],  
 };
 </script>
