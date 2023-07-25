@@ -1,18 +1,13 @@
 <template>
-  <div>
-    <TheHeader />
-    <base-card>
-      <BadgeList />
-    </base-card>
-    <base-card>
-      <UserInfo
-        :full-name="activeUser.name"
-        :info-text="activeUser.description"
-        :role="activeUser.role"
-      />
-    </base-card>
-    
-  </div>
+	<div>
+		<TheHeader />
+		<BadgeList />
+		<UserInfo
+			:full-name="activeUser.name"
+			:info-text="activeUser.description"
+			:role="activeUser.role"
+		/>
+	</div>
 </template>
 
 <script>
@@ -21,30 +16,29 @@ import BadgeList from './components/BadgeList.vue';
 import UserInfo from './components/UserInfo.vue';
 
 export default {
-  components: {
-    TheHeader,
-    BadgeList,
-    UserInfo
-  },
-  data() {
-    return {
-      activeUser: {
-        name: 'Brad Grensewich',
-        description: 'Site owner and admin',
-        role: 'admin',
-      },
-    };
-  },
+	components: {
+		TheHeader,
+		BadgeList,
+		UserInfo,
+	},
+	data() {
+		return {
+			activeUser: {
+				name: 'Brad Grensewich',
+				description: 'Site owner and admin',
+				role: 'admin',
+			},
+		};
+	},
 };
 </script>
 
 <style>
 html {
-  font-family: sans-serif;
+	font-family: sans-serif;
 }
 
 body {
-  margin: 0;
+	margin: 0;
 }
-
 </style>
