@@ -1,6 +1,6 @@
 <template>
 	<div>
-        <header v-if="$slots.header">
+        <header>
             <slot name="header">
                 <!-- <h2>Missing content(rendered by default)</h2> -->
             </slot>
