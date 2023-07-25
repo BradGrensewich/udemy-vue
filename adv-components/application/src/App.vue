@@ -1,11 +1,17 @@
 <template>
 	<div>
 		<TheHeader />
-    <button @click="setSelectedComponent('ActiveGoals')">ActiveGoals</button>
-    <button @click="setSelectedComponent('ManageGoals')">ManageGoals</button>
-    <!-- <ActiveGoals v-if="selectedComponent === 'ActiveGoals'"/>
+		<button @click="setSelectedComponent('ActiveGoals')">
+			ActiveGoals
+		</button>
+		<button @click="setSelectedComponent('ManageGoals')">
+			ManageGoals
+		</button>
+		<!-- <ActiveGoals v-if="selectedComponent === 'ActiveGoals'"/>
     <ManageGoals v-if="selectedComponent === 'ManageGoals'"/> -->
-    <component :is="selectedComponent"></component>
+		<keep-alive>
+			<component :is="selectedComponent"></component>
+		</keep-alive>
 	</div>
 </template>
 
@@ -28,7 +34,7 @@ export default {
 	},
 	data() {
 		return {
-      selectedComponent: 'ActiveGoals',
+			selectedComponent: 'ActiveGoals',
 			activeUser: {
 				name: 'Brad Grensewich',
 				description: 'Site owner and admin',
@@ -36,11 +42,11 @@ export default {
 			},
 		};
 	},
-  methods: {
-    setSelectedComponent(cmp) {
-      this.selectedComponent = cmp;
-    }
-  }
+	methods: {
+		setSelectedComponent(cmp) {
+			this.selectedComponent = cmp;
+		},
+	},
 };
 </script>
 
