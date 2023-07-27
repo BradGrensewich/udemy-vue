@@ -1,47 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+	<ul>
+		<LearningResource
+			v-for="resource in storedResources"
+			:key="resource.id"
+			:="resource"
+		/>
+	</ul>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import LearningResource from './components/LearningResource.vue';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+export default {
+	components: { LearningResource },
+	data() {
+		return {
+			storedResources: [
+				{
+					id: 'official-guide',
+					title: 'Official Guide',
+					description: 'The official Vue.js documentation',
+					link: 'https://vuejs.org',
+				},
+				{
+					id: 'google',
+					title: 'Google',
+					description: 'Learn to Google',
+					link: 'https://google.com',
+				},
+			],
+		};
+	},
+};
+</script>
