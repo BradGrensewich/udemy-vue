@@ -7,7 +7,7 @@
 					type="text"
 					id="title"
 					name="title"
-					v-model="enteredTitle"
+					v-model.lazy="enteredTitle"
 				/>
 			</div>
 			<div class="form-control">
@@ -16,12 +16,17 @@
 					id="description"
 					name="description"
 					rows="3"
-					v-model="enteredDescription"
+					v-model.lazy="enteredDescription"
 				></textarea>
 			</div>
 			<div class="form-control">
 				<label for="link">Link</label>
-				<input type="url" id="link" name="link" v-model="enteredLink" />
+				<input
+					type="url"
+					id="link"
+					name="link"
+					v-model.lazy="enteredLink"
+				/>
 			</div>
 			<div>
 				<BaseButton type="submit">Add Resource</BaseButton>
@@ -32,6 +37,7 @@
 
 <script>
 export default {
+    inject: ['addResource'],
 	data() {
 		return {
 			enteredTitle: '',
@@ -41,8 +47,8 @@ export default {
 	},
 	methods: {
 		saveResource() {
-            this.$emit('save-resource', this.enteredTitle, this.enteredDescription, this.enteredLink)
-        },
+			this.addResource(this.enteredTitle, this.enteredDescription, this.enteredLink)
+		},
 	},
 };
 </script>
