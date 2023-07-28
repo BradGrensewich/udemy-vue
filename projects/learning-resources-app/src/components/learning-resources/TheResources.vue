@@ -11,7 +11,7 @@
 			>Add Resources</BaseButton
 		>
 	</BaseCard>
-	<component :is="selectedTab" :resources="resources"></component>
+	<component :is="selectedTab" :resources="resources" @save-resource="addSavedResource"></component>
 </template>
 
 <script>
@@ -43,6 +43,14 @@ export default {
 		setSelectedTab(tab) {
 			this.selectedTab = tab;
 		},
+        addSavedResource(title, description, link) {
+            this.storedResources.push({
+                id: Date.now(),
+                title: title,
+                description: description,
+                link: link
+            })
+        }
 	},
 	computed: {
 		resources() {
