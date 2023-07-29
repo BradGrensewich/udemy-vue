@@ -1,25 +1,27 @@
 <template>
-	<div @click="closeDialog"></div>
-	<dialog open>
-		<header>
-			<slot name="header">
-				<h2>{{ title }}</h2>
-			</slot>
-		</header>
-		<section>
-			<slot></slot>
-		</section>
-		<menu>
-			<slot name="actions">
-				<BaseButton @click="closeDialog">Close</BaseButton>
-			</slot>
-		</menu>
-	</dialog>
+	<teleport to="body">
+		<div @click="closeDialog"></div>
+		<dialog open>
+			<header>
+				<slot name="header">
+					<h2>{{ title }}</h2>
+				</slot>
+			</header>
+			<section>
+				<slot></slot>
+			</section>
+			<menu>
+				<slot name="actions">
+					<BaseButton @click="closeDialog">Close</BaseButton>
+				</slot>
+			</menu>
+		</dialog>
+	</teleport>
 </template>
 
 <script>
 export default {
-    emits: ['close'],
+	emits: ['close'],
 	props: {
 		title: {
 			type: String,
