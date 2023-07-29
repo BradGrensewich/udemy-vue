@@ -1,4 +1,15 @@
 <template>
+	<BaseDialog v-if="isInvalid" title="Invalid Input" @closeDialog="confirmError">
+		<template #default>
+			<p>
+				Unfortunately, at least one input field is invalid. Please check
+				all inputs and make sure you enter some information into each input field.
+			</p>
+		</template>
+		<template #actions>
+			<BaseButton @click="confirmError"> Okay </BaseButton>
+		</template>
+	</BaseDialog>
 	<BaseCard>
 		<form @submit.prevent="saveResource">
 			<div class="form-control">
@@ -37,18 +48,34 @@
 
 <script>
 export default {
-    inject: ['addResource'],
+	inject: ['addResource'],
 	data() {
 		return {
 			enteredTitle: '',
 			enteredDescription: '',
 			enteredLink: '',
+			isInvalid: false,
 		};
 	},
 	methods: {
 		saveResource() {
-			this.addResource(this.enteredTitle, this.enteredDescription, this.enteredLink)
+			if (
+				!this.enteredTitle.trim() ||
+				!this.enteredDescription.trim() ||
+				!this.enteredLink.trim()
+			) {
+				this.isInvalid = true;
+				return;
+			}
+			this.addResource(
+				this.enteredTitle,
+				this.enteredDescription,
+				this.enteredLink
+			);
 		},
+        confirmError() {
+            this.isInvalid = false
+        }
 	},
 };
 </script>

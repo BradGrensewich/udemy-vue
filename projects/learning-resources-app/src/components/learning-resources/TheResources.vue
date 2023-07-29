@@ -11,10 +11,9 @@
 			>Add Resources</BaseButton
 		>
 	</BaseCard>
-    <KeepAlive>
-        <component :is="selectedTab" :resources="resources"></component>
-    </KeepAlive>
-	
+	<KeepAlive>
+		<component :is="selectedTab" :resources="resources"></component>
+	</KeepAlive>
 </template>
 
 <script>
@@ -72,10 +71,9 @@ export default {
 		},
 	},
 	provide() {
-        return {
-            addResource: this.addSavedResource,
-        }
-		
+		return {
+			addResource: this.addSavedResource,
+		};
 	},
 };
 </script>
