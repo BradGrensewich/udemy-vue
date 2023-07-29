@@ -54,6 +54,14 @@ export default {
 			});
 			this.selectedTab = 'StoredResources';
 		},
+		removeSavedResource(resID) {
+			//important that we are not creating a new array but rather modifying the original in memory
+			//this is due to how provide works IMPORTANT
+			const resIndex = this.storedResources.findIndex(
+				(res) => res.id === resID
+			);
+			this.storedResources.splice(resID, 1);
+		},
 	},
 	computed: {
 		resources() {
@@ -73,6 +81,7 @@ export default {
 	provide() {
 		return {
 			addResource: this.addSavedResource,
+			deleteResource: this.removeSavedResource,
 		};
 	},
 };
