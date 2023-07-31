@@ -1,15 +1,20 @@
 <template>
 	<form @submit.prevent="submitForm">
-		<div class="form-control" :class="{invalid: userNameValidity === 'invalid'}">
+		<div
+			class="form-control"
+			:class="{ invalid: userNameValidity === 'invalid' }"
+		>
 			<label for="user-name">Your Name</label>
 			<input
 				id="user-name"
 				name="user-name"
 				type="text"
 				v-model.lazy.trim="enteredUserName"
-        @blur="validateInput"
+				@blur="validateInput"
 			/>
-      <p v-if="userNameValidity === 'invalid'">Please enter a valid user name</p>
+			<p v-if="userNameValidity === 'invalid'">
+				Please enter a valid user name
+			</p>
 		</div>
 		<div class="form-control">
 			<label for="age">Your Age (Years)</label>
@@ -99,6 +104,9 @@
 			</div>
 		</div>
 		<div class="form-control">
+			<RatingControl></RatingControl>
+		</div>
+		<div class="form-control">
 			<input
 				type="checkbox"
 				name="confirm-terms"
@@ -114,7 +122,9 @@
 </template>
 
 <script>
+import RatingControl from './RatingControl.vue';
 export default {
+	components: [RatingControl],
 	data() {
 		return {
 			enteredUserName: '',
@@ -143,6 +153,7 @@ export default {
 			}
 		},
 	},
+	components: { RatingControl },
 };
 </script>
 
@@ -161,10 +172,10 @@ form {
 }
 
 .form-control.invalid input {
-  border-color: red;
+	border-color: red;
 }
 .form-control.invalid label {
-  color: red;
+	color: red;
 }
 
 label {
