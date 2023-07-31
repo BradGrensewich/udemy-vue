@@ -1,13 +1,15 @@
 <template>
 	<form @submit.prevent="submitForm">
-		<div class="form-control">
+		<div class="form-control" :class="{invalid: userNameValidity === 'invalid'}">
 			<label for="user-name">Your Name</label>
 			<input
 				id="user-name"
 				name="user-name"
 				type="text"
 				v-model.lazy.trim="enteredUserName"
+        @blur="validateInput"
 			/>
+      <p v-if="userNameValidity === 'invalid'">Please enter a valid user name</p>
 		</div>
 		<div class="form-control">
 			<label for="age">Your Age (Years)</label>
@@ -37,7 +39,7 @@
 					id="interest-news"
 					name="interest"
 					type="checkbox"
-          value="news"
+					value="news"
 					v-model.lazy="enteredInterests"
 				/>
 				<label for="interest-news">News</label>
@@ -47,7 +49,7 @@
 					id="interest-tutorials"
 					name="interest"
 					type="checkbox"
-          value="tutorials"
+					value="tutorials"
 					v-model.lazy="enteredInterests"
 				/>
 				<label for="interest-tutorials">Tutorials</label>
@@ -57,7 +59,7 @@
 					id="interest-nothing"
 					name="interest"
 					type="checkbox"
-          value="nothing"
+					value="nothing"
 					v-model.lazy="enteredInterests"
 				/>
 				<label for="interest-nothing">Nothing</label>
@@ -70,7 +72,7 @@
 					id="how-video"
 					name="how"
 					type="radio"
-          value="video"
+					value="video"
 					v-model="enteredHow"
 				/>
 				<label for="how-video">Video Courses</label>
@@ -80,7 +82,7 @@
 					id="how-blogs"
 					name="how"
 					type="radio"
-          value="blogs"
+					value="blogs"
 					v-model="enteredHow"
 				/>
 				<label for="how-blogs">Blogs</label>
@@ -90,16 +92,21 @@
 					id="how-other"
 					name="how"
 					type="radio"
-          value="other"
+					value="other"
 					v-model="enteredHow"
 				/>
 				<label for="how-other">Other</label>
 			</div>
 		</div>
-    <div class="form-control">
-      <input type="checkbox" name="confirm-terms" id="confirm-terms" v-model="confirm">
-      <label for="confirm-terms">Agree to terms of use?</label>
-    </div>
+		<div class="form-control">
+			<input
+				type="checkbox"
+				name="confirm-terms"
+				id="confirm-terms"
+				v-model="confirm"
+			/>
+			<label for="confirm-terms">Agree to terms of use?</label>
+		</div>
 		<div>
 			<button>Save Data</button>
 		</div>
@@ -115,7 +122,8 @@ export default {
 			enteredReferrer: 'wom',
 			enteredInterests: [],
 			enteredHow: null,
-      confirm: false
+			confirm: false,
+			userNameValidity: 'pending',
 		};
 	},
 	methods: {
@@ -124,8 +132,15 @@ export default {
 			this.enteredUserName = '';
 			this.enteredUserAge = null;
 			this.enteredReferrer = 'wom';
-      this.enteredInterests = [];
-      this.enteredHow = null
+			this.enteredInterests = [];
+			this.enteredHow = null;
+		},
+		validateInput() {
+			if (this.enteredUserName === '') {
+				this.userNameValidity = 'invalid';
+			} else {
+				this.userNameValidity = 'valid';
+			}
 		},
 	},
 };
@@ -143,6 +158,13 @@ form {
 
 .form-control {
 	margin: 0.5rem 0;
+}
+
+.form-control.invalid input {
+  border-color: red;
+}
+.form-control.invalid label {
+  color: red;
 }
 
 label {
