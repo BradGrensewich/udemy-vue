@@ -104,7 +104,7 @@
 			</div>
 		</div>
 		<div class="form-control">
-			<RatingControl></RatingControl>
+			<RatingControl v-model="enteredRating"></RatingControl>
 		</div>
 		<div class="form-control">
 			<input
@@ -132,18 +132,22 @@ export default {
 			enteredReferrer: 'wom',
 			enteredInterests: [],
 			enteredHow: null,
+			enteredRating: null,
 			confirm: false,
 			userNameValidity: 'pending',
 		};
 	},
 	methods: {
 		submitForm() {
-			console.log(this.enteredUserName);
+			console.log(this.enteredRating);
 			this.enteredUserName = '';
 			this.enteredUserAge = null;
 			this.enteredReferrer = 'wom';
 			this.enteredInterests = [];
 			this.enteredHow = null;
+			this.confirm = false;
+			this.userNameValidity = 'pending';
+			this.enteredRating = null;
 		},
 		validateInput() {
 			if (this.enteredUserName === '') {
