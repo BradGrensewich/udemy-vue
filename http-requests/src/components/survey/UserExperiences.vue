@@ -8,6 +8,7 @@
 				>
 			</div>
       <p v-if="isLoading">Loading...</p>
+      <p v-else-if="!isLoading && (results.length === 0 || !results)">No stored experiences found.</p>
 			<ul v-else>
 				<survey-result
 					v-for="result in results"
