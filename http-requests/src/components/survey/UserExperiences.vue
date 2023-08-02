@@ -54,6 +54,9 @@ export default {
 				});
 		},
 	},
+	created() {
+		this.loadSubmittedExperiences();
+	},
 };
 </script>
 
