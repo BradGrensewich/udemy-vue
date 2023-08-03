@@ -43,7 +43,7 @@ export default {
 			this.isLoading = true;
 			this.browserError = null;
 			fetch(
-				'https://vue-http-demo-4567d-default-rtdb.asia-southeast1.firebasedatabase.app/surveys'
+				'https://vue-http-demo-4567d-default-rtdb.asia-southeast1.firebasedatabase.app/surveys.json'
 			)
 				.then((response) => {
 					if (response.ok) {
