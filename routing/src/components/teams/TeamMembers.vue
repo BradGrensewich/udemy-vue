@@ -9,6 +9,7 @@
 				:role="member.role"
 			></user-item>
 		</ul>
+		<router-link to="/teams/t2">Go to team 2</router-link>
 	</section>
 </template>
 
@@ -21,21 +22,33 @@ export default {
 	},
 	inject: ['users', 'teams'],
 	created() {
-		//get member ids of selected team
-		const teamid = this.$route.params.teamid;    
-		const selectedTeam = this.teams.find((team) => team.id === teamid);
-		const teamMembers = selectedTeam.members;
-		//get user info from users data
-		const selectedMembers = [];
-		for (const member of teamMembers) {
-			const selectedUser = this.users.find((user) => user.id === member);
-			selectedMembers.push(selectedUser);
-		}
-    //add to data
-    this.members = selectedMembers
-    this.teamName = selectedTeam.name
-
+		this.loadTeamMembers(this.$route);
 	},
+	methods: {
+		loadTeamMembers(route) {
+			//get member ids of selected team
+			const teamid = route.params.teamid;
+      console.log(teamid)
+			const selectedTeam = this.teams.find((team) => team.id === teamid);
+			const teamMembers = selectedTeam.members;
+			//get user info from users data
+			const selectedMembers = [];
+			for (const member of teamMembers) {
+				const selectedUser = this.users.find(
+					(user) => user.id === member
+				);
+				selectedMembers.push(selectedUser);
+			}
+			//add to data
+			this.members = selectedMembers;
+			this.teamName = selectedTeam.name;
+		},
+	},
+  watch: {
+    $route(value) {
+      this.loadTeamMembers(value)
+    }
+  },
 	data() {
 		return {
 			teamName: '',
