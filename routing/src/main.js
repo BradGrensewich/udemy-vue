@@ -11,12 +11,19 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{ path: '/', redirect: '/teams' },
-		{ path: '/teams', component: TeamsList },
+		{
+			path: '/teams',
+			component: TeamsList,
+			children: [
+				{ path: '/teams/:teamid', component: TeamMembers, props: true },
+			],
+		},
 		{ path: '/users', component: UsersList },
-		{ path: '/teams/:teamid', component: TeamMembers, props: true },
+		,
 		{ path: '/:notFound(.*)', component: NotFound },
 	],
 	linkActiveClass: 'active',
+    linkExactActiveClass: 'active-exact'
 });
 
 const app = createApp(App);

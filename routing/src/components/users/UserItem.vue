@@ -16,6 +16,12 @@ export default {
       if (this.role === 'Consultant') {
         return 'role--consultant';
       }
+      if (this.role === 'Designer') {
+        return 'role--designer';
+      }
+      if (this.role === 'Lead Engineer') {
+        return 'role--lead-engineer';
+      }
       return null;
     },
   },
@@ -43,6 +49,16 @@ h3 {
 
 .role--engineer {
   background-color: blue;
+  color: white;
+}
+
+.role--lead-engineer {
+  background-color: green;
+  color: white;
+}
+
+.role--designer {
+  background-color: pink;
   color: white;
 }
 

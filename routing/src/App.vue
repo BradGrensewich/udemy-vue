@@ -15,7 +15,7 @@ export default {
 	data() {
 		return {
 			teams: [
-				{ id: 't1', name: 'Frontend Engineers', members: ['u1', 'u2'] },
+				{ id: 't1', name: 'Frontend Engineers', members: ['u1', 'u2', 'u6'] },
 				{
 					id: 't2',
 					name: 'Backend Engineers',
@@ -29,6 +29,7 @@ export default {
 				{ id: 'u3', fullName: 'Julie Jones', role: 'Engineer' },
 				{ id: 'u4', fullName: 'Alex Blackfield', role: 'Consultant' },
 				{ id: 'u5', fullName: 'Marie Smith', role: 'Consultant' },
+        { id: 'u6', fullName: 'Vy Ngo', role: 'Designer'}
 			],
 		};
 	},

@@ -46,4 +46,7 @@ a:hover,
 a:active {
 	background-color: #220a8d;
 }
+a.active-exact {
+	background-color: red;
+}
 </style>
