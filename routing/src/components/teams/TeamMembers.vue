@@ -21,14 +21,13 @@ export default {
 		UserItem,
 	},
 	inject: ['users', 'teams'],
+	props: ['teamid'],
 	created() {
-		this.loadTeamMembers(this.$route);
+		this.loadTeamMembers(this.teamid);
 	},
 	methods: {
-		loadTeamMembers(route) {
+		loadTeamMembers(teamid) {
 			//get member ids of selected team
-			const teamid = route.params.teamid;
-      console.log(teamid)
 			const selectedTeam = this.teams.find((team) => team.id === teamid);
 			const teamMembers = selectedTeam.members;
 			//get user info from users data
@@ -44,11 +43,11 @@ export default {
 			this.teamName = selectedTeam.name;
 		},
 	},
-  watch: {
-    $route(value) {
-      this.loadTeamMembers(value)
-    }
-  },
+	watch: {
+		teamid(value) {
+			this.loadTeamMembers(value);
+		},
+	},
 	data() {
 		return {
 			teamName: '',
