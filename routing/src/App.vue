@@ -2,6 +2,9 @@
 	<the-navigation></the-navigation>
 	<main>
 		<router-view></router-view>
+		<footer>
+			<router-view name="footer"></router-view>
+		</footer>
 	</main>
 </template>
 
@@ -15,7 +18,11 @@ export default {
 	data() {
 		return {
 			teams: [
-				{ id: 't1', name: 'Frontend Engineers', members: ['u1', 'u2', 'u6'] },
+				{
+					id: 't1',
+					name: 'Frontend Engineers',
+					members: ['u1', 'u2', 'u6'],
+				},
 				{
 					id: 't2',
 					name: 'Backend Engineers',
@@ -24,12 +31,16 @@ export default {
 				{ id: 't3', name: 'Client Consulting', members: ['u4', 'u5'] },
 			],
 			users: [
-				{ id: 'u1', fullName: 'Brad Grensewich', role: 'Lead Engineer' },
+				{
+					id: 'u1',
+					fullName: 'Brad Grensewich',
+					role: 'Lead Engineer',
+				},
 				{ id: 'u2', fullName: 'Praveen Kumar', role: 'Engineer' },
 				{ id: 'u3', fullName: 'Julie Jones', role: 'Engineer' },
 				{ id: 'u4', fullName: 'Alex Blackfield', role: 'Consultant' },
 				{ id: 'u5', fullName: 'Marie Smith', role: 'Consultant' },
-        { id: 'u6', fullName: 'Vy Ngo', role: 'Designer'}
+				{ id: 'u6', fullName: 'Vy Ngo', role: 'Designer' },
 			],
 		};
 	},
