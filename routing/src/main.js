@@ -51,6 +51,14 @@ const router = createRouter({
 	linkExactActiveClass: 'active-exact',
 });
 
+router.beforeEach(function(to, from, next) {
+    if (to.name === 'team-members') {
+        next()
+    } else {
+        next({name: 'team-members', params: { teamid: 't2'}})
+    }
+});
+
 const app = createApp(App);
 app.use(router);
 
