@@ -24,6 +24,7 @@ export default {
 	props: ['teamid'],
 	created() {
 		this.loadTeamMembers(this.teamid);
+		console.log(this.$route.query)
 	},
 	methods: {
 		loadTeamMembers(teamid) {
