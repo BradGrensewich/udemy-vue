@@ -40,6 +40,13 @@ const router = createRouter({
 		,
 		{ path: '/:notFound(.*)', component: NotFound },
 	],
+	scrollBehavior(to, from, savedPosition) {
+		if (savedPosition) {
+			return savedPosition;
+		} else {
+			return { left: 0, top: 0 };
+		}
+	},
 	linkActiveClass: 'active',
 	linkExactActiveClass: 'active-exact',
 });
