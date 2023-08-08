@@ -9,7 +9,7 @@
 				:role="member.role"
 			></user-item>
 		</ul>
-		<router-link to="/teams/t2">Go to team 2</router-link>
+		<router-link :to="teamMembersLink">Go to team 2</router-link>
 	</section>
 </template>
 
@@ -43,9 +43,18 @@ export default {
 			this.teamName = selectedTeam.name;
 		},
 	},
+	computed: {
+		teamMembersLink() {
+			return {
+				name: 'team-members',
+				params: { teamid: 't2' },
+				query: { sort: 'asc' },
+			};
+		},
+	},
 	watch: {
-		teamid(value) {
-			this.loadTeamMembers(value);
+		teamid(newId) {
+			this.loadTeamMembers(newId);
 		},
 	},
 	data() {
