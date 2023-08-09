@@ -1,32 +1,40 @@
 <template>
-  <button @click="dummySubmitAndNav">Confirm</button>
-  <ul>
-    <user-item v-for="user in users" :key="user.id" :name="user.fullName" :role="user.role"></user-item>
-  </ul>
+	<button @click="dummySubmitAndNav">Confirm</button>
+	<ul>
+		<user-item
+			v-for="user in users"
+			:key="user.id"
+			:name="user.fullName"
+			:role="user.role"
+		></user-item>
+	</ul>
 </template>
 
 <script>
 import UserItem from './UserItem.vue';
 
 export default {
-  components: {
-    UserItem,
-  },
-  inject: ['users'],
-  methods: {
-    dummySubmitAndNav() {
-      console.log("dummy submission action")
-      this.$router.push('/teams')
-    }
-  }
+	components: {
+		UserItem,
+	},
+	inject: ['users'],
+	methods: {
+		dummySubmitAndNav() {
+			console.log('dummy submission action');
+			this.$router.push('/teams');
+		},
+	},
+	beforeRouteEnter() {
+		console.log('Called beforeRoute enter in UserList component');
+	},
 };
 </script>
 
 <style scoped>
 ul {
-  list-style: none;
-  margin: 2rem auto;
-  max-width: 20rem;
-  padding: 0;
+	list-style: none;
+	margin: 2rem auto;
+	max-width: 20rem;
+	padding: 0;
 }
 </style>

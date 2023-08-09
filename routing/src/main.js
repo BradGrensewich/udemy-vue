@@ -36,6 +36,10 @@ const router = createRouter({
 				default: UsersList,
 				footer: UsersFooter,
 			},
+			beforeEnter(to, from) {
+				console.log('Called beforeEnter in Users route');
+				return true;
+			},
 		},
 		,
 		{ path: '/:notFound(.*)', component: NotFound },
@@ -51,13 +55,13 @@ const router = createRouter({
 	linkExactActiveClass: 'active-exact',
 });
 
-router.beforeEach(function (to, from,) {
-	if (to.name === 'team-members') {
-		return true;
-	} else {
-		return { name: 'team-members', params: { teamid: 't2' } };
-	}
-});
+// router.beforeEach(function (to, from,) {
+// 	if (to.name === 'team-members') {
+// 		return true;
+// 	} else {
+// 		return { name: 'team-members', params: { teamid: 't2' } };
+// 	}
+// });
 
 const app = createApp(App);
 app.use(router);

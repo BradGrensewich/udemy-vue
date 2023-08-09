@@ -24,8 +24,16 @@ export default {
 	props: ['teamid'],
 	created() {
 		this.loadTeamMembers(this.teamid);
-		console.log(this.$route.query)
+		console.log(this.$route.query);
 	},
+	// beforeRouteUpdate(to, from) {
+	// 	console.log(to);
+	// 	if (to.params.teamid === 't2') {
+	// 		return true;
+	// 	} else {
+	// 		return { name: 'team-members', params: { teamid: 't2' } };
+	// 	}
+	// },
 	methods: {
 		loadTeamMembers(teamid) {
 			//get member ids of selected team
