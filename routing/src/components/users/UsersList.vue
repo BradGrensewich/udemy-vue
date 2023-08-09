@@ -1,5 +1,6 @@
 <template>
 	<button @click="dummySubmitAndNav">Confirm</button>
+	<button @click="saveChanges">Save Changes</button>
 	<ul>
 		<user-item
 			v-for="user in users"
@@ -17,16 +18,31 @@ export default {
 	components: {
 		UserItem,
 	},
+	data() {
+		return {
+			changesSaved: false,
+		};
+	},
 	inject: ['users'],
 	methods: {
 		dummySubmitAndNav() {
 			console.log('dummy submission action');
 			this.$router.push('/teams');
 		},
+		saveChanges() {
+			this.changesSaved = true;
+		},
 	},
 	beforeRouteEnter() {
 		console.log('Called beforeRoute enter in UserList component');
 	},
+	beforeRouteLeave() {
+		if (this.changesSaved) {
+			return true
+		} else {
+			return confirm('Are you sure? You have unsaved changes.')
+		}	
+	}
 };
 </script>
 
