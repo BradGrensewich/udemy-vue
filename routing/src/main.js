@@ -62,6 +62,9 @@ const router = createRouter({
 // 		return { name: 'team-members', params: { teamid: 't2' } };
 // 	}
 // });
+router.afterEach(function(to, from) {
+    console.log('router calls afterEach()')
+})
 
 const app = createApp(App);
 app.use(router);
