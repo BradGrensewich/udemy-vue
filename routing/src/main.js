@@ -40,6 +40,7 @@ const router = createRouter({
 				console.log('Called beforeEnter in Users route');
 				return true;
 			},
+            meta: {needsAuth: true}
 		},
 		,
 		{ path: '/:notFound(.*)', component: NotFound },
@@ -55,13 +56,11 @@ const router = createRouter({
 	linkExactActiveClass: 'active-exact',
 });
 
-// router.beforeEach(function (to, from,) {
-// 	if (to.name === 'team-members') {
-// 		return true;
-// 	} else {
-// 		return { name: 'team-members', params: { teamid: 't2' } };
-// 	}
-// });
+router.beforeEach(function (to, from,) {
+	if (to.meta.needsAuth) {
+        return confirm('This route needs authentication. Do you have it?')
+    }
+});
 router.afterEach(function(to, from) {
     console.log('router calls afterEach()')
 })
