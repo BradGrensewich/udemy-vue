@@ -1,6 +1,7 @@
 <template>
 	<base-container title="Vuex">
 		<TheCounter />
+		<ModifiedCounter />
 		<button @click="addNine">Add 9</button>
 		<ChangeCounter />
 	</base-container>
@@ -10,12 +11,14 @@
 import BaseContainer from './components/BaseContainer.vue';
 import TheCounter from './components/TheCounter.vue';
 import ChangeCounter from './components/ChangeCounter.vue';
+import ModifiedCounter from './components/ModifiedCounter.vue';
 
 export default {
 	components: {
 		BaseContainer,
 		TheCounter,
 		ChangeCounter,
+		ModifiedCounter,
 	},
 	methods: {
 		addNine() {

@@ -9,6 +9,21 @@ const store = createStore({
 			counter: 0,
 		};
 	},
+	getters: {
+		count(state) {
+			return state.counter;
+		},
+		normalizedCounter(_, getters) {
+			const count = getters.count;
+			if (count < 0) {
+				return 0;
+			} else if (count > 100) {
+				return 100;
+			} else {
+				return count;
+			}
+		},
+	},
 	mutations: {
 		increase(state, payload) {
 			state.counter += payload.value;
