@@ -31,6 +31,7 @@ const store = createStore({
 	},
 	actions: {
 		increase(context, payload) {
+            console.log(context)
 			setTimeout(function () {
 				context.commit('increase', payload);
 			}, 1000);
