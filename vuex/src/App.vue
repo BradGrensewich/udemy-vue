@@ -1,10 +1,13 @@
 <template>
-	<base-container title="Vuex">
+	<base-container v-if="isLoggedIn" title="Vuex">
 		<TheCounter />
 		<ModifiedCounter />
 		<button @click="addNine">Add 9</button>
 		<ChangeCounter />
 	</base-container>
+  <BaseContainer title="Signin">
+    <UserAuth ></UserAuth>
+  </BaseContainer>
 </template>
 
 <script>
@@ -12,6 +15,9 @@ import BaseContainer from './components/BaseContainer.vue';
 import TheCounter from './components/TheCounter.vue';
 import ChangeCounter from './components/ChangeCounter.vue';
 import ModifiedCounter from './components/ModifiedCounter.vue';
+import UserAuth from './components/UserAuth.vue';
+
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {
@@ -19,6 +25,7 @@ export default {
 		TheCounter,
 		ChangeCounter,
 		ModifiedCounter,
+    UserAuth
 	},
 	methods: {
 		addNine() {
@@ -28,6 +35,9 @@ export default {
 			});
 		},
 	},
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  }
 };
 </script>
 
