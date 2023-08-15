@@ -30,7 +30,7 @@ export default {
 	methods: {
 		addNine() {
 			this.$store.dispatch({
-				type: 'increase',
+				type: 'counter/increase',
 				value: 9,
 			});
 		},
