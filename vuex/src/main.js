@@ -29,6 +29,13 @@ const store = createStore({
 			state.counter += payload.value;
 		},
 	},
+	actions: {
+		increase(context, payload) {
+			setTimeout(function () {
+				context.commit('increase', payload);
+			}, 1000);
+		},
+	},
 });
 
 const app = createApp(App);
