@@ -1,4 +1,7 @@
 <template>
+	<section>
+		FILTER
+	</section>
 	<ul>
 		<CoachDetails v-for="coach in coaches" :id="coach.id" :coach="coach"></CoachDetails>
 	</ul>
