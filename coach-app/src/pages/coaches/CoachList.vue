@@ -5,37 +5,22 @@
 			<button>Refresh</button>
 			<RouterLink :to="{ name: 'register' }">Register as Coach</RouterLink>
 		</div>
-		<ul>
-			<li v-for="coach in coaches">
-				<RouterLink  :to=" {name: 'coach', params: { id: coach.id}}">{{ coach.name }}</RouterLink>
-			</li>
-			
+		<ul v-if="hasCoaches">
+			<li v-for="coach in coaches" :key="coach.id">
+				<RouterLink  :to=" {name: 'coach', params: { id: coach.id}}">{{ coach.firstName }}</RouterLink>
+			</li>			
 		</ul>
+		<h3 v-else>No coaches found</h3>
 	</section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {	
-	data() {
-		return {
-			coaches: [
-				{
-					id: 1,
-					name: 'Dummy',
-					phone: '911',
-					email: 'fake@fake',
-					expertise: ['java', 'python'],
-				},
-				{
-					id: 2,
-					name: 'Dummy2',
-					phone: '11111',
-					email: 'fakefake@fake',
-					expertise: ['c', 'vue', 'firebase'],
-				},
-			],
-		};
-	},
+	computed: {
+		...mapGetters(['coaches', 'hasCoaches'])
+		
+	}
 };
 </script>
