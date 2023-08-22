@@ -1,16 +1,22 @@
 <template>
+	<section>FILTER</section>
 	<section>
-		FILTER
+		<div class="controls">
+			<button>Refresh</button>
+			<RouterLink :to="{ name: 'register' }">Register as Coach</RouterLink>
+		</div>
+		<ul>
+			<li v-for="coach in coaches">
+				<RouterLink  :to=" {name: 'coach', params: { id: coach.id}}">{{ coach.name }}</RouterLink>
+			</li>
+			
+		</ul>
 	</section>
-	<ul>
-		<CoachDetails v-for="coach in coaches" :id="coach.id" :coach="coach"></CoachDetails>
-	</ul>
 </template>
 
 <script>
-import CoachDetails from './CoachDetails.vue';
-export default {
-	components: { CoachDetails },
+
+export default {	
 	data() {
 		return {
 			coaches: [
@@ -21,7 +27,7 @@ export default {
 					email: 'fake@fake',
 					expertise: ['java', 'python'],
 				},
-                {
+				{
 					id: 2,
 					name: 'Dummy2',
 					phone: '11111',

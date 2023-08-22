@@ -1,8 +1,5 @@
 <template>
-    <div>
-        
-    </div>
-
+    REGISTER
 </template>
 
 <script>

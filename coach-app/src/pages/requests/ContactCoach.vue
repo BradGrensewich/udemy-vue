@@ -1,7 +1,5 @@
 <template>
-    <div>
-        
-    </div>
+    CONTACT DETAILS FOR A COACH!!!
 
 </template>
 
