@@ -1,24 +1,24 @@
 <template>
 	<section>FILTER</section>
 	<section>
-		<div class="controls">
-			<button>Refresh</button>
-			<RouterLink :to="{ name: 'register' }"
-				>Register as Coach</RouterLink
-			>
-		</div>
-		<ul v-if="hasCoaches">
-			<CoachItem
-				v-for="coach in coaches"
-				:key="coach.id"
-				:id="coach.id"
-				:first-name="coach.firstName"
-				:last-name="coach.lastName"
-				:rate="coach.hourlyRate"
-				:areas="coach.areas"
-			></CoachItem>
-		</ul>
-		<h3 v-else>No coaches found</h3>
+		<BaseCard>
+			<div class="controls">
+				<BaseButton mode="outline">Refresh</BaseButton>
+				<BaseButton link :to="{ name: 'register' }">Register as Coach</BaseButton>
+			</div>
+			<ul v-if="hasCoaches">
+				<CoachItem
+					v-for="coach in coaches"
+					:key="coach.id"
+					:id="coach.id"
+					:first-name="coach.firstName"
+					:last-name="coach.lastName"
+					:rate="coach.hourlyRate"
+					:areas="coach.areas"
+				></CoachItem>
+			</ul>
+			<h3 v-else>No coaches found</h3></BaseCard
+		>
 	</section>
 </template>
 
@@ -41,13 +41,13 @@ export default {
 
 <style scoped>
 ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .controls {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 </style>
