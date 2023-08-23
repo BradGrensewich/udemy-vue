@@ -40,4 +40,9 @@ export default {
   color: white;
 }
 
+.graphic-design {
+    background-color: pink;
+    color: #252525;
+}
+
 </style>
