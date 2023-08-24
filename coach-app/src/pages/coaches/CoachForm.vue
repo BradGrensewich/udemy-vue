@@ -38,6 +38,7 @@
 
 <script>
 export default {
+    emits: ['save-data'],
 	data() {
 		return {
 			availableAreas: ['frontend', 'backend', 'career', 'graphic design'],
@@ -52,7 +53,7 @@ export default {
 		areaIDs() {
 			const idMap = {};
 			for (const area of this.availableAreas) {
-				idMap[area] = area.split(' ').join('');
+				idMap[area] = area.split(' ').join('-');
 			}
 			return idMap;
 		},
@@ -66,7 +67,7 @@ export default {
 				rate: this.rate,
 				areas: this.areas,
 			};
-            console.log(formData)
+            this.$emit('save-data', formData)
 		},
 	},
 };
