@@ -6,8 +6,11 @@ export default {
 	},
 	getters: {
 		requests(state) {
-			return this.requests
+			return state.requests
 			
+		},
+		hasRequests(state) {
+			return state.requests && state.requests.length > 0
 		}
 	},
 	mutations: {
