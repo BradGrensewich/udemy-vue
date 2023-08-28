@@ -5,14 +5,16 @@
 	<section>
 		<BaseCard>
 			<div class="controls">
-				<BaseButton mode="outline">Refresh</BaseButton>
+				<BaseButton mode="outline" @click="loadCoaches"
+					>Refresh</BaseButton
+				>
 				<BaseButton v-if="!isCoach" link :to="{ name: 'register' }"
 					>Register as Coach</BaseButton
 				>
 			</div>
 			<ul v-if="hasCoaches">
 				<CoachItem
-					v-for="coach in getCoaches()"
+					v-for="coach in filteredCoaches"
 					:key="coach.id"
 					:id="coach.id"
 					:first-name="coach.firstName"
@@ -30,6 +32,8 @@
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from './CoachFilter.vue';
 
+import { mapActions } from 'vuex';
+
 export default {
 	data() {
 		return {
@@ -37,25 +41,24 @@ export default {
 				frontend: true,
 				backend: true,
 				career: true,
-				graphicDesign: true,
+				graphicdesign: true,
 			},
 		};
 	},
 	computed: {
 		//doesn't work as expected due to vuex being a mess
-		coaches() {
+		coaches() {			
 			return this.getCoaches();
 		},
 		hasCoaches() {
 			return this.$store.getters.hasCoaches;
 		},
 		filteredCoaches() {
-			console.log('filtering coaches');
 			return this.coaches.filter((coach) => {
 				for (const area in this.activeFilters) {
 					if (
 						this.activeFilters[area] &&
-						coach.areas.includes(area)
+						coach.areas.some(coachArea => coachArea.replace(/-/g, '') === area)
 					) {
 						return true;
 					}
@@ -65,21 +68,19 @@ export default {
 		},
 		isCoach() {
 			return this.$store.getters.isCoach;
-		}
+		},
 	},
 	methods: {
-		refreshCoaches() {
-			console.log('refreshed TODO');
-		},
-		//this should be unneccessary and i should be able to use the computed property but there is
-		//an issue with how vuex caches in the current version of vue that is messing this up
-		//need to learn Pinia ASAP
-		getCoaches() {
+		...mapActions(['loadCoaches']),
+		getCoaches() {			
 			return this.$store.getters.coaches;
 		},
 		setFilters(updatedFilters) {
 			this.activeFilters = updatedFilters;
 		},
+	},
+	created() {
+		this.loadCoaches();
 	},
 	components: { CoachItem, CoachFilter },
 };

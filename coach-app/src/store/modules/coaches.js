@@ -1,32 +1,11 @@
 export default {
 	state() {
 		return {
-			coaches: [
-				{
-					id: 'c1',
-					firstName: 'Brad',
-					lastName: 'Grensewich',
-					areas: ['frontend', 'backend', 'career'],
-					description:
-						"I'm Brad and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
-					hourlyRate: 30,
-				},
-				{
-					id: 'c2',
-					firstName: 'Julie',
-					lastName: 'Jones',
-					areas: ['frontend', 'career'],
-					description:
-						'I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.',
-					hourlyRate: 30,
-				},
-			],
+			coaches: [],
 		};
 	},
 	getters: {
-		coaches(state) {
-			console.log('getting coaches');
-			console.log(state.coaches);
+		coaches(state) {			
 			return state.coaches;
 		},
 		hasCoaches(state) {
@@ -41,7 +20,9 @@ export default {
 	mutations: {
 		registerCoach(state, payload) {
 			state.coaches.push(payload);
-			console.log(state.coaches);
+		},
+		setCoaches(state, payload) {
+			state.coaches = payload;
 		},
 	},
 	actions: {
@@ -70,6 +51,31 @@ export default {
 			}
 
 			context.commit('registerCoach', { ...coachData, id: userId });
+		},
+		async loadCoaches(context) {
+			const response = await fetch(
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
+			);
+			const responseData = await response.json();
+
+			if (!response.ok) {
+				console.log('server error');
+			}
+
+			const coaches = [];
+
+			for (const key in responseData) {
+				const coach = {
+					id: key,
+					firstName: responseData[key].firstName,
+					lastName: responseData[key].lastName,
+					description: responseData[key].description,
+					hourlyRate: responseData[key].hourlyRate,
+					areas: responseData[key].areas,
+				};
+				coaches.push(coach);
+			}
+			context.commit('setCoaches', coaches);
 		},
 	},
 };
