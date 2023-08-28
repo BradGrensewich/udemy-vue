@@ -32,11 +32,11 @@ export default {
 		hasCoaches(state) {
 			return state.coaches && state.coaches.length > 0;
 		},
-        isCoach(_, getters, _2, rootGetters) {
-            const coaches = getters.coaches
-            const userId = rootGetters.userId
-            return coaches.some(coach => coach.id === userId)
-        }
+		isCoach(_, getters, _2, rootGetters) {
+			const coaches = getters.coaches;
+			const userId = rootGetters.userId;
+			return coaches.some((coach) => coach.id === userId);
+		},
 	},
 	mutations: {
 		registerCoach(state, payload) {
@@ -45,16 +45,31 @@ export default {
 		},
 	},
 	actions: {
-		registerCoach(context, data) {
-			const coach = {
-				id: context.rootGetters.userId,
+		async registerCoach(context, data) {
+			const userId = context.rootGetters.userId;
+			const coachData = {
 				firstName: data.first,
 				lastName: data.last,
 				description: data.desc,
 				hourlyRate: data.rate,
 				areas: data.areas,
 			};
-			context.commit('registerCoach', coach);
+
+			const response = await fetch(
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
+				{
+					method: 'PUT',
+					body: JSON.stringify(coachData),
+				}
+			);
+
+			//const responseData = await response.json()
+
+			if (!response.ok) {
+				console.log('server error');
+			}
+
+			context.commit('registerCoach', { ...coachData, id: userId });
 		},
 	},
 };
