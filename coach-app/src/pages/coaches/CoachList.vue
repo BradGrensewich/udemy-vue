@@ -8,11 +8,14 @@
 				<BaseButton mode="outline" @click="loadCoaches"
 					>Refresh</BaseButton
 				>
-				<BaseButton v-if="!isCoach" link :to="{ name: 'register' }"
+				<BaseButton v-if="!isCoach && !isLoading" link :to="{ name: 'register' }"
 					>Register as Coach</BaseButton
 				>
 			</div>
-			<ul v-if="hasCoaches">
+			<div v-if="isLoading">
+				<BaseSpinner></BaseSpinner>
+			</div>
+			<ul v-else-if="hasCoaches">
 				<CoachItem
 					v-for="coach in filteredCoaches"
 					:key="coach.id"
@@ -32,7 +35,6 @@
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from './CoachFilter.vue';
 
-import { mapActions } from 'vuex';
 
 export default {
 	data() {
@@ -43,22 +45,25 @@ export default {
 				career: true,
 				graphicdesign: true,
 			},
+			isLoading: false,
 		};
 	},
 	computed: {
 		//doesn't work as expected due to vuex being a mess
-		coaches() {			
-			return this.getCoaches();
+		coaches() {
+			return this.$store.getters.coaches;
 		},
 		hasCoaches() {
-			return this.$store.getters.hasCoaches;
+			return !this.isLoading && this.$store.getters.hasCoaches;
 		},
 		filteredCoaches() {
 			return this.coaches.filter((coach) => {
 				for (const area in this.activeFilters) {
 					if (
 						this.activeFilters[area] &&
-						coach.areas.some(coachArea => coachArea.replace(/-/g, '') === area)
+						coach.areas.some(
+							(coachArea) => coachArea.replace(/-/g, '') === area
+						)
 					) {
 						return true;
 					}
@@ -71,10 +76,12 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(['loadCoaches']),
-		getCoaches() {			
-			return this.$store.getters.coaches;
+		async loadCoaches() {
+			this.isLoading = true
+			await this.$store.dispatch('loadCoaches');
+			this.isLoading = false
 		},
+
 		setFilters(updatedFilters) {
 			this.activeFilters = updatedFilters;
 		},
