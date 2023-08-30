@@ -5,7 +5,7 @@ export default {
 		};
 	},
 	getters: {
-		coaches(state) {			
+		coaches(state) {
 			return state.coaches;
 		},
 		hasCoaches(state) {
@@ -37,7 +37,7 @@ export default {
 			};
 
 			const response = await fetch(
-				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.jso`,
 				{
 					method: 'PUT',
 					body: JSON.stringify(coachData),
@@ -45,9 +45,14 @@ export default {
 			);
 
 			//const responseData = await response.json()
+			
 
 			if (!response.ok) {
-				console.log('server error');
+				
+				const error = new Error(
+					response.message || 'Failed to register!'
+				);
+				throw error;
 			}
 
 			context.commit('registerCoach', { ...coachData, id: userId });
@@ -59,7 +64,10 @@ export default {
 			const responseData = await response.json();
 
 			if (!response.ok) {
-				console.log('server error');
+				const error = new Error(
+					responseData.message || 'Failed to fetch!'
+				);
+				throw error;
 			}
 
 			const coaches = [];

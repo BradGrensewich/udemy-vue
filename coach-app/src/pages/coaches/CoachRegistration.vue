@@ -1,6 +1,12 @@
 <template>
+	<BaseDialog :show="!!error" title="An error occured." @close="handleError">
+		<p>{{ error }}</p>
+	</BaseDialog>
 	<section>
-		<BaseCard>
+		<div v-if="isLoading">
+			<BaseSpinner></BaseSpinner>
+		</div>
+		<BaseCard v-else>
 			<h2>Register as a coach now!</h2>
 			<CoachForm @save-data="saveData"></CoachForm>
 		</BaseCard>
@@ -8,16 +14,32 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import CoachForm from './CoachForm.vue';
 
 export default {
+	data() {
+		return {
+			isLoading: false,
+			error: null,
+		};
+	},
 	components: { CoachForm },
 	methods: {
-		...mapActions(['registerCoach']),
+		async registerCoach(data) {
+			this.isLoading = true;
+			try {
+				await this.$store.dispatch('registerCoach', data);
+			} catch (error) {
+				this.error = error.message || 'Something went wrong!';
+			}
+			this.isLoading = false;
+		},
 		saveData(data) {
 			this.registerCoach(data);
-            this.$router.replace('/coaches')
+			this.$router.replace('/coaches');
+		},
+		handleError() {
+			this.error = null;
 		},
 	},
 };

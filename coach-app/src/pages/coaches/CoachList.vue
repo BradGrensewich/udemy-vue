@@ -1,4 +1,7 @@
 <template>
+	<BaseDialog :show="!!error" title="An error occured." @close="handleError">
+		<p>{{ error }}</p>
+	</BaseDialog>
 	<section>
 		<CoachFilter @change-filters="setFilters"></CoachFilter>
 	</section>
@@ -8,7 +11,10 @@
 				<BaseButton mode="outline" @click="loadCoaches"
 					>Refresh</BaseButton
 				>
-				<BaseButton v-if="!isCoach && !isLoading" link :to="{ name: 'register' }"
+				<BaseButton
+					v-if="!isCoach && !isLoading"
+					link
+					:to="{ name: 'register' }"
 					>Register as Coach</BaseButton
 				>
 			</div>
@@ -35,7 +41,6 @@
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from './CoachFilter.vue';
 
-
 export default {
 	data() {
 		return {
@@ -46,6 +51,7 @@ export default {
 				graphicdesign: true,
 			},
 			isLoading: false,
+			error: null,
 		};
 	},
 	computed: {
@@ -77,13 +83,21 @@ export default {
 	},
 	methods: {
 		async loadCoaches() {
-			this.isLoading = true
-			await this.$store.dispatch('loadCoaches');
-			this.isLoading = false
+			this.isLoading = true;
+			try {
+				await this.$store.dispatch('loadCoaches');
+			} catch (error) {
+				this.error = error.message || 'Something went wrong!';
+			}
+
+			this.isLoading = false;
 		},
 
 		setFilters(updatedFilters) {
 			this.activeFilters = updatedFilters;
+		},
+		handleError() {
+			this.error = null;
 		},
 	},
 	created() {
