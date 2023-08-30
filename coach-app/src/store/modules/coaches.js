@@ -37,7 +37,7 @@ export default {
 			};
 
 			const response = await fetch(
-				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.jso`,
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
 				{
 					method: 'PUT',
 					body: JSON.stringify(coachData),
@@ -45,10 +45,8 @@ export default {
 			);
 
 			//const responseData = await response.json()
-			
 
 			if (!response.ok) {
-				
 				const error = new Error(
 					response.message || 'Failed to register!'
 				);

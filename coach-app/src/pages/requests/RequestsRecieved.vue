@@ -1,4 +1,7 @@
 <template>
+	<BaseDialog :show="!!error" title="An error occured." @close="handleError">
+		<p>{{ error }}</p>
+	</BaseDialog>
 	<section>
 		<BaseCard>
 			<header>
@@ -23,6 +26,12 @@
 import RequestItem from '../../components/requests/RequestItem.vue';
 
 export default {
+	data() {
+		return {
+			error: null,
+			isLoading: false
+		}
+	},
 	computed: {
 		receivedRequests() {
 			return this.$store.getters.requests;
@@ -30,6 +39,23 @@ export default {
 		hasRequests() {
 			return this.$store.getters.hasRequests;
 		},
+	},
+	methods: {
+		async loadRequests() {
+			this.isLoading = true
+			try {
+				await this.$store.dispatch('loadRequests')
+			} catch (error) {
+				this.error = error.message || 'Something went wrong!';
+			}
+			this.isLoading = false
+		},
+		handleError() {
+			this.error = null
+		}
+	},
+	created() {		
+		this.loadRequests()
 	},
 	components: { RequestItem },
 };
