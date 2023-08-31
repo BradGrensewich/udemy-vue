@@ -8,7 +8,7 @@
 	<section>
 		<BaseCard>
 			<div class="controls">
-				<BaseButton mode="outline" @click="loadCoaches"
+				<BaseButton mode="outline" @click="loadCoaches(true)"
 					>Refresh</BaseButton
 				>
 				<BaseButton
@@ -82,10 +82,10 @@ export default {
 		},
 	},
 	methods: {
-		async loadCoaches() {
+		async loadCoaches(refresh = false) {
 			this.isLoading = true;
 			try {
-				await this.$store.dispatch('loadCoaches');
+				await this.$store.dispatch('loadCoaches', {forceRefresh: refresh});
 			} catch (error) {
 				this.error = error.message || 'Something went wrong!';
 			}

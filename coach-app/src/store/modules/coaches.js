@@ -2,6 +2,7 @@ export default {
 	state() {
 		return {
 			coaches: [],
+			lastFetch: null,
 		};
 	},
 	getters: {
@@ -16,6 +17,14 @@ export default {
 			const userId = rootGetters.userId;
 			return coaches.some((coach) => coach.id === userId);
 		},
+		shouldUpdate(state) {
+			const lastFetch = state.lastFetch;
+			if (!lastFetch) {
+				return true;
+			}
+			const currTime = new Date().getTime();
+			return (currTime - lastFetch) / 1000 > 60;
+		},
 	},
 	mutations: {
 		registerCoach(state, payload) {
@@ -23,6 +32,9 @@ export default {
 		},
 		setCoaches(state, payload) {
 			state.coaches = payload;
+		},
+		setFetchTimestamp(state) {
+			state.lastFetch = new Date().getTime();
 		},
 	},
 	actions: {
@@ -55,7 +67,12 @@ export default {
 
 			context.commit('registerCoach', { ...coachData, id: userId });
 		},
-		async loadCoaches(context) {
+		async loadCoaches(context, payload) {
+			if (!context.getters.shouldUpdate && !payload.forceRefresh) {
+				console.log('fetch not neccessary. using cached data');
+				return;
+			}
+
 			const response = await fetch(
 				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
 			);
@@ -82,6 +99,7 @@ export default {
 				coaches.push(coach);
 			}
 			context.commit('setCoaches', coaches);
+			context.commit('setFetchTimestamp');
 		},
 	},
 };

@@ -17,7 +17,6 @@ export default {
 			state.requests.push(payload);
 		},
 		setRequests(state, payload) {
-			console.log(payload)
 			state.requests = payload;
 		},
 	},
@@ -67,7 +66,7 @@ export default {
 				};
 				requests.push(request);
 			}
-			console.log(requests);
+
 			context.commit('setRequests', requests);
 		},
 	},
