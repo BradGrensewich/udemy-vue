@@ -1,7 +1,9 @@
 export default {
-    state() {
+	state() {
 		return {
-			userId: 'c2',
+			userId: null,
+            token: null,
+            tokenExpiration: null
 		};
 	},
 	getters: {
@@ -9,10 +11,42 @@ export default {
 			return state.userId;
 		},
 	},
-    mutations: {
+	mutations: {
+		setUser(state, payload) {
+			state.token = payload.token;
+			state.userId = payload.userId;
+			state.tokenExpiration = payload.tokenExpiration;
+		},
+	},
+	actions: {
+		async signup(context, payload) {
+			const response = await fetch(
+				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY',
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						email: payload.email,
+						password: payload.password,
+						returnSecureToken: true,
+					}),
+				}
+			);
 
-    },
-    actions: {
-        
-    }
-}
+			const responseData = await response.json();
+
+			if (!response.ok) {
+				console.log(responseData);
+				const error = new Error(
+					responseData.message || 'Failed to signup!'
+				);
+				throw error;
+			}
+
+			context.commit('setUser', {
+				token: responseData.idToken,
+				userId: responseData.localid,
+				tokenExpiration: responseData.expiresIn,
+			});
+		},
+	},
+};

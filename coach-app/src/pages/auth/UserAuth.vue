@@ -17,9 +17,9 @@
 				Please enter a valid email and password of at least 6 characters
 			</p>
 			<BaseButton> {{ submitButtonCaption }}</BaseButton>
-			<BaseButton type="button" mode="flat" @click="switchAuthMode"
-				>{{ switchModeButtonCaption }}</BaseButton
-			>
+			<BaseButton type="button" mode="flat" @click="switchAuthMode">{{
+				switchModeButtonCaption
+			}}</BaseButton>
 		</form>
 	</BaseCard>
 </template>
@@ -34,23 +34,22 @@ export default {
 			mode: 'login',
 		};
 	},
-    computed: {
-        submitButtonCaption() {
-            if (this.mode === 'login') {
-                return 'Login'
-            } else {
-                return 'Signup'
-            }
-
-        },
-        switchModeButtonCaption() {
-            if (this.mode === 'login') {
-                return 'Singup Instead'
-            } else {
-                return 'Login Instead'
-            }
-        }
-    },
+	computed: {
+		submitButtonCaption() {
+			if (this.mode === 'login') {
+				return 'Login';
+			} else {
+				return 'Signup';
+			}
+		},
+		switchModeButtonCaption() {
+			if (this.mode === 'login') {
+				return 'Signup Instead';
+			} else {
+				return 'Login Instead';
+			}
+		},
+	},
 	methods: {
 		submitForm() {
 			this.formIsValid = true;
@@ -62,15 +61,23 @@ export default {
 				this.formIsValid = false;
 				return;
 			}
-            //send http request
+
+			if (this.mode === 'login') {
+				//todo
+			} else {
+				this.$store.dispatch('signup', {
+					email: this.email,
+					password: this.password,
+				});
+			}
 		},
 		switchAuthMode() {
-            if (this.mode === 'login') {
-                this.mode = 'signup'
-            } else {
-                this.mode = 'login'
-            }
-        },
+			if (this.mode === 'login') {
+				this.mode = 'signup';
+			} else {
+				this.mode = 'login';
+			}
+		},
 	},
 };
 </script>
