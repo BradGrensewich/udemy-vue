@@ -2,8 +2,8 @@ export default {
 	state() {
 		return {
 			userId: null,
-            token: null,
-            tokenExpiration: null
+			token: null,
+			tokenExpiration: null,
 		};
 	},
 	getters: {
@@ -19,18 +19,33 @@ export default {
 		},
 	},
 	actions: {
-		async signup(context, payload) {
-			const response = await fetch(
-				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY',
-				{
-					method: 'POST',
-					body: JSON.stringify({
-						email: payload.email,
-						password: payload.password,
-						returnSecureToken: true,
-					}),
-				}
-			);
+		login(context, payload) {
+			const endPoint =
+				'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY';
+			const payloadObject = {
+				...payload,
+				endPoint: endPoint,
+			};
+			context.dispatch('authenticate', payloadObject);
+		},
+		signup(context, payload) {
+			const endPoint =
+				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY';
+			const payloadObject = {
+				...payload,
+				endPoint: endPoint,
+			};
+			context.dispatch('authenticate', payloadObject);
+		},
+		async authenticate(context, payload) {
+			const response = await fetch(payload.endPoint, {
+				method: 'POST',
+				body: JSON.stringify({
+					email: payload.email,
+					password: payload.password,
+					returnSecureToken: true,
+				}),
+			});
 
 			const responseData = await response.json();
 
