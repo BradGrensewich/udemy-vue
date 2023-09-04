@@ -29,14 +29,16 @@ export default {
 			this.isLoading = true;
 			try {
 				await this.$store.dispatch('registerCoach', data);
-			} catch (error) {
-				this.error = error.message || 'Something went wrong!';
+			} catch (e) {
+				this.error = e.message || 'Something went wrong!';
 			}
 			this.isLoading = false;
 		},
-		saveData(data) {
-			this.registerCoach(data);
-			this.$router.replace('/coaches');
+		async saveData(data) {
+			await this.registerCoach(data);
+			if (!this.error) {
+				this.$router.replace('/coaches');
+			}
 		},
 		handleError() {
 			this.error = null;

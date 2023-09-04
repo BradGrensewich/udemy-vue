@@ -29,8 +29,8 @@ export default {
 	data() {
 		return {
 			error: null,
-			isLoading: false
-		}
+			isLoading: false,
+		};
 	},
 	computed: {
 		receivedRequests() {
@@ -42,20 +42,20 @@ export default {
 	},
 	methods: {
 		async loadRequests() {
-			this.isLoading = true
+			this.isLoading = true;
 			try {
-				await this.$store.dispatch('loadRequests')
+				await this.$store.dispatch('loadRequests');
 			} catch (error) {
 				this.error = error.message || 'Something went wrong!';
 			}
-			this.isLoading = false
+			this.isLoading = false;
 		},
 		handleError() {
-			this.error = null
-		}
+			this.error = null;
+		},
 	},
-	created() {		
-		this.loadRequests()
+	created() {
+		this.loadRequests();
 	},
 	components: { RequestItem },
 };

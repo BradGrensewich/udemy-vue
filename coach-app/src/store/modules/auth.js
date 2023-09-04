@@ -10,6 +10,9 @@ export default {
 		userId(state) {
 			return state.userId;
 		},
+		token(state) {
+			return state.token;
+		},
 	},
 	mutations: {
 		setUser(state, payload) {
@@ -19,23 +22,31 @@ export default {
 		},
 	},
 	actions: {
-		login(context, payload) {
+		async login(context, payload) {
 			const endPoint =
 				'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY';
 			const payloadObject = {
 				...payload,
 				endPoint: endPoint,
 			};
-			context.dispatch('authenticate', payloadObject);
+			try {
+				await context.dispatch('authenticate', payloadObject);
+			} catch (error) {
+				throw error;
+			}
 		},
-		signup(context, payload) {
+		async signup(context, payload) {
 			const endPoint =
 				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwS71TkHVK4GpgHOGtxHtoeDkwHHsOGGY';
 			const payloadObject = {
 				...payload,
 				endPoint: endPoint,
 			};
-			context.dispatch('authenticate', payloadObject);
+			try {
+				await context.dispatch('authenticate', payloadObject);
+			} catch (error) {
+				throw error;
+			}
 		},
 		async authenticate(context, payload) {
 			const response = await fetch(payload.endPoint, {
@@ -50,16 +61,16 @@ export default {
 			const responseData = await response.json();
 
 			if (!response.ok) {
-				console.log(responseData);
 				const error = new Error(
-					responseData.message || 'Failed to signup!'
+					responseData.message ||
+						'Failed to authenticate! Check your credentials'
 				);
 				throw error;
 			}
 
 			context.commit('setUser', {
 				token: responseData.idToken,
-				userId: responseData.localid,
+				userId: responseData.localId,
 				tokenExpiration: responseData.expiresIn,
 			});
 		},

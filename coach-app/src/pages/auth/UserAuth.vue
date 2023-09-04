@@ -91,7 +91,7 @@ export default {
 				if (this.mode === 'login') {
 					await this.$store.dispatch('login', actionPayload);
 				} else {
-					await this.$store.dispatch('signupa', actionPayload);
+					await this.$store.dispatch('signup', actionPayload);
 				}
 			} catch (e) {
 				this.error = e.message || 'Failed to authenticate';

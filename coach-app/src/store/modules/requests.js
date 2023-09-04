@@ -47,11 +47,14 @@ export default {
 		},
 		async loadRequests(context) {
 			const userId = context.rootGetters.userId;
+			const token = context.rootGetters.token;
 			const response = await fetch(
-				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/requests/${userId}.json`
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/requests/${userId}.json?auth=${token}`
 			);
 			if (!response.ok) {
-				const error = new Error(response.message || 'Failed to fetch!');
+				const error = new Error(
+					response.message || 'Failed to fetch! Are you logged in?'
+				);
 				throw error;
 			}
 			const responseData = await response.json();

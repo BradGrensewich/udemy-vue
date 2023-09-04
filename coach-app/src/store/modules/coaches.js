@@ -48,19 +48,20 @@ export default {
 				areas: data.areas,
 			};
 
+			const token = context.rootGetters.token;
+
 			const response = await fetch(
-				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
+				`https://coach-app-3612f-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json?auth=${token}`,
 				{
 					method: 'PUT',
 					body: JSON.stringify(coachData),
 				}
 			);
 
-			//const responseData = await response.json()
-
 			if (!response.ok) {
 				const error = new Error(
-					response.message || 'Failed to register!'
+					response.message ||
+						'Failed to register as a coach! Are you logged in?'
 				);
 				throw error;
 			}
