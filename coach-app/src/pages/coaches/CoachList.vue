@@ -11,8 +11,9 @@
 				<BaseButton mode="outline" @click="loadCoaches(true)"
 					>Refresh</BaseButton
 				>
+				<BaseButton link :to="{ name: 'auth' }" v-if="!isLoggedIn">Login</BaseButton>
 				<BaseButton
-					v-if="!isCoach && !isLoading"
+					v-if="registerAvailable"
 					link
 					:to="{ name: 'register' }"
 					>Register as Coach</BaseButton
@@ -55,15 +56,15 @@ export default {
 		};
 	},
 	computed: {
-		//doesn't work as expected due to vuex being a mess
-		coaches() {
-			return this.$store.getters.coaches;
+		isLoggedIn() {
+			return this.$store.getters.isAuthenticated;
 		},
 		hasCoaches() {
 			return !this.isLoading && this.$store.getters.hasCoaches;
 		},
 		filteredCoaches() {
-			return this.coaches.filter((coach) => {
+			const coaches = this.$store.getters.coaches;
+			return coaches.filter((coach) => {
 				for (const area in this.activeFilters) {
 					if (
 						this.activeFilters[area] &&
@@ -80,12 +81,17 @@ export default {
 		isCoach() {
 			return this.$store.getters.isCoach;
 		},
+		registerAvailable() {
+			return this.isLoggedIn && !this.isCoach && !this.isLoading;
+		},
 	},
 	methods: {
 		async loadCoaches(refresh = false) {
 			this.isLoading = true;
 			try {
-				await this.$store.dispatch('loadCoaches', {forceRefresh: refresh});
+				await this.$store.dispatch('loadCoaches', {
+					forceRefresh: refresh,
+				});
 			} catch (error) {
 				this.error = error.message || 'Something went wrong!';
 			}
