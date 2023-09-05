@@ -53,11 +53,9 @@ const router = createRouter({
 });
 
 router.beforeEach(function (to) {
-	console.log('checking route')
 	if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
 		return { name: 'auth' };
 	} else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
-		console.log('logged in and trying to auth!. reeee')
 		return { name: 'coaches' };
 	} else {
 		return true;

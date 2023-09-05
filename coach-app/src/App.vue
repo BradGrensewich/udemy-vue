@@ -7,7 +7,10 @@
 import { RouterView } from 'vue-router';
 import TheHeader from './components/layout/TheHeader.vue';
 export default {
-    components: { TheHeader, RouterView }
+    components: { TheHeader, RouterView },
+    created() {
+      this.$store.dispatch('tryLogin')
+    }
 
 }
 </script>
