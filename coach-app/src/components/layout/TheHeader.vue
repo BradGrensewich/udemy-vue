@@ -5,17 +5,22 @@
 				<RouterLink :to="{ name: 'home' }">Find a Coach</RouterLink>
 			</h1>
 			<ul>
-        <li>
-          <RouterLink :to="{ name: 'coaches' }">All Coaches</RouterLink>
-        </li>
-        <li v-if="isLoggedIn">
-          <RouterLink :to="{ name: 'requests' }" >Requests</RouterLink>
-        </li>
-        <li v-else>
-          <RouterLink :to="{ name: 'auth' }" >Login</RouterLink>
-        </li>
-				
-				
+				<li>
+					<RouterLink :to="{ name: 'coaches' }"
+						>All Coaches</RouterLink
+					>
+				</li>
+				<li v-if="isLoggedIn">
+					<RouterLink :to="{ name: 'requests' }">Requests</RouterLink>
+				</li>
+				<li v-else>
+					<RouterLink :to="{ name: 'auth' }">Login</RouterLink>
+				</li>
+				<li>
+					<BaseButton v-if="isLoggedIn" @click="logout"
+						>Logout</BaseButton
+					>
+				</li>
 			</ul>
 		</nav>
 	</header>
@@ -26,6 +31,11 @@ export default {
 	computed: {
 		isLoggedIn() {
 			return this.$store.getters.isAuthenticated;
+		},
+	},
+	methods: {
+		logout() {
+			this.$store.dispatch('logout');
 		},
 	},
 };
