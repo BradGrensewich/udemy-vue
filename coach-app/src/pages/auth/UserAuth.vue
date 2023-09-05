@@ -93,6 +93,8 @@ export default {
 				} else {
 					await this.$store.dispatch('signup', actionPayload);
 				}
+                const redirectLocation = (this.$route.query.redirect || 'coaches')
+                this.$router.replace({name: redirectLocation})
 			} catch (e) {
 				this.error = e.message || 'Failed to authenticate';
 			}
