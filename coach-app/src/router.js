@@ -28,14 +28,14 @@ const router = createRouter({
 			name: 'register',
 			path: '/register',
 			component: CoachRegistration,
-			meta: { requiresAuth: true },
+			meta: { requiresAuth: true, requiresNotCoach: true  },
 		},
 
 		{
 			name: 'requests',
 			path: '/requests',
 			component: RequestsRecieved,
-			meta: { requiresAuth: true },
+			meta: { requiresAuth: true},
 		},
 		{
 			name: 'auth',
@@ -53,9 +53,16 @@ const router = createRouter({
 });
 
 router.beforeEach(function (to) {
+	console.log('before')
+	console.log(to.meta.requiresNotCoach)
+	console.log(store.getters.isCoach)
 	if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
 		return { name: 'auth' };
-	} else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+	} else if (
+		(to.meta.requiresUnauth && store.getters.isAuthenticated) ||
+		(to.meta.requiresNotCoach && store.getters.isCoach)
+	) {
+		console.log('redirected')
 		return { name: 'coaches' };
 	} else {
 		return true;
