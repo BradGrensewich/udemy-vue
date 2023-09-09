@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue';
+import { reactive, ref, computed, watch } from 'vue';
 
 const fname = ref('');
 const lname = ref('');
@@ -28,6 +28,16 @@ const user = reactive({
 	name: userName,
 	age: age
 })
+
+watch([userName, age], function(newValues, oldValues) {
+	console.log('Old name: ' + oldValues[0])
+	console.log('New name: ' + newValues[0])
+	console.log('Old age: ' + oldValues[1])
+	console.log('New name: ' + newValues[1])
+})
+
+
+
 
 
 </script>
