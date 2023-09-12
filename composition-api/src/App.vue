@@ -1,7 +1,6 @@
 <template>
 	<section class="container">
-		<h2>{{ user.name }}</h2>
-		<h3>{{ user.age }}</h3>
+		<UserData :fname="fname" :lname="lname" :age="age"></UserData>
 		<button @click="increaseAge">Increase Age</button>
 		<div>
 			<input type="text" placeholder="First Name" v-model="fname" />
@@ -13,27 +12,20 @@
 
 <script setup>
 import { reactive, ref, computed, watch } from 'vue';
+import UserData from './components/UserData.vue';
 
 const fname = ref('');
 const lname = ref('');
 const lastNameInput = ref(null)
 
 function setLastName() {
-	lname.value = lastNameInput.value.value
-}
-const userName = computed(function() {
-	return fname.value + ' ' + lname.value;
-});
+	lname.value = lastNameInput.value.value}
 
 const age = ref(30);
 function increaseAge() {
 	age.value++;
 }
 
-const user = reactive({
-	name: userName,
-	age: age
-})
 
 // watch([userName, age], function(newValues, oldValues) {
 // 	console.log('Old name: ' + oldValues[0])
