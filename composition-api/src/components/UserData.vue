@@ -5,14 +5,16 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
-const props = defineProps(['fname', 'lname', 'age'])
+const props = defineProps(['fname', 'lname'])
 const emit = defineEmits(['test'])
 
 const userName = computed(() => {return props.fname + ' ' + props.lname})
 
+const age = inject('age')
+
 function buttonClick() {
-    emit('test', (3 + props.age))
+    emit('test', (3 + age.value))
 }
 </script>
