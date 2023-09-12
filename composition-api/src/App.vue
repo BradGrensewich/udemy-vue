@@ -5,7 +5,8 @@
 		<button @click="increaseAge">Increase Age</button>
 		<div>
 			<input type="text" placeholder="First Name" v-model="fname" />
-			<input type="text" placeholder="Last Name" v-model="lname" />
+			<input type="text" placeholder="Last Name" ref="lastNameInput" />
+			<button @click="setLastName">Set last name</button>
 		</div>
 	</section>
 </template>
@@ -15,6 +16,11 @@ import { reactive, ref, computed, watch } from 'vue';
 
 const fname = ref('');
 const lname = ref('');
+const lastNameInput = ref(null)
+
+function setLastName() {
+	lname.value = lastNameInput.value.value
+}
 const userName = computed(function() {
 	return fname.value + ' ' + lname.value;
 });
@@ -29,12 +35,12 @@ const user = reactive({
 	age: age
 })
 
-watch([userName, age], function(newValues, oldValues) {
-	console.log('Old name: ' + oldValues[0])
-	console.log('New name: ' + newValues[0])
-	console.log('Old age: ' + oldValues[1])
-	console.log('New name: ' + newValues[1])
-})
+// watch([userName, age], function(newValues, oldValues) {
+// 	console.log('Old name: ' + oldValues[0])
+// 	console.log('New name: ' + newValues[0])
+// 	console.log('Old age: ' + oldValues[1])
+// 	console.log('New name: ' + newValues[1])
+// })
 
 
 
