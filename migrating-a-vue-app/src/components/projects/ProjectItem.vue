@@ -4,10 +4,11 @@
   </li>
 </template>
 
-<script>
-export default {
-  props: ['title'],
-};
+<script setup>
+const props = defineProps(['title'])
+// export default {
+//   props: ['title'],
+// };
 </script>
 
 <style scoped>
