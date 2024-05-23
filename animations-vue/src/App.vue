@@ -5,7 +5,7 @@
 	</div>
 	<div class="container">
 		<button @click="toggleParagraph">Toggle Paragraph</button>
-		<Transition>
+		<Transition name="para">
 			<p v-if="paraIsVisible">This is only sometimes visible</p>
 		</Transition>
 	</div>
@@ -87,7 +87,7 @@ button:active {
 /* .v-enter-from {
 	transform: translateX(-300px) scale(50%);
 } */
-.v-enter-active {
+.para-enter-active {
 	animation: slide-fade 500ms ease-out forwards;
 }
 /* .v-enter-to {
@@ -96,7 +96,7 @@ button:active {
 /* .v-leave-from {
   transform: translateX(0px) scale(100%);
 } */
-.v-leave-active {
+.para-leave-active {
   animation: slide-fade 500ms ease-out;
 }
 /* .v-leave-to {
