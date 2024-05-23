@@ -9,13 +9,18 @@
 			<p v-if="paraIsVisible">This is only sometimes visible</p>
 		</Transition>
 	</div>
-	
-		<base-modal @close="hideDialog" :open="dialogIsVisible">
-			<p>This is a test dialog!</p>
-			<button @click="hideDialog">Close it!</button>
-		</base-modal>
-	
-
+	<div class="container">
+		<Transition name="buttons" mode="out-in">
+			<button v-if="!usersAreVisible" @click="showUsers">
+				Show Users
+			</button>
+			<button v-else @click="hideUsers">Hide Users</button>
+		</Transition>
+	</div>
+	<base-modal @close="hideDialog" :open="dialogIsVisible">
+		<p>This is a test dialog!</p>
+		<button @click="hideDialog">Close it!</button>
+	</base-modal>
 	<div class="container">
 		<button @click="showDialog">Show Dialog</button>
 	</div>
@@ -27,6 +32,7 @@ import { ref } from 'vue';
 const dialogIsVisible = ref(false);
 const animatedBlock = ref(false);
 const paraIsVisible = ref(false);
+const usersAreVisible = ref(false);
 
 function toggleParagraph() {
 	paraIsVisible.value = !paraIsVisible.value;
@@ -38,9 +44,14 @@ function showDialog() {
 function hideDialog() {
 	dialogIsVisible.value = false;
 }
-
 function animateBlock() {
 	animatedBlock.value = true;
+}
+function showUsers() {
+	usersAreVisible.value = true;
+}
+function hideUsers() {
+	usersAreVisible.value = false;
 }
 </script>
 
@@ -105,11 +116,28 @@ button:active {
 .para-leave-to {
 	transform: translateX(300px) scale(50%);
 }
+
+.buttons-enter-from,
+.buttons-leave-to {
+  opacity: 0;
+  transform: scale(30%);
+}
+.buttons-enter-active {
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+.buttons-leave-active {
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+}
+
+.buttons-enter-to,
+.buttons-leave-from {
+  opacity: 1;
+  transform: scale(100%);
+}
 .animate {
 	/* transform: translateX(-150px); */
 	animation: slide-fade 500ms ease-out both;
 }
-
 
 @keyframes slide-fade {
 	0% {
