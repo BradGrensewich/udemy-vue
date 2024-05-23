@@ -84,24 +84,24 @@ button:active {
 	border-radius: 12px;
 }
 
-.v-enter-from {
+/* .v-enter-from {
 	transform: translateX(-300px) scale(50%);
-}
+} */
 .v-enter-active {
-	transition: transform 500ms ease-out;
+	animation: slide-fade 500ms ease-out forwards;
 }
-.v-enter-to {
+/* .v-enter-to {
 	transform: translateX(0px) scale(100%);
-}
-.v-leave-from {
+} */
+/* .v-leave-from {
   transform: translateX(0px) scale(100%);
-}
+} */
 .v-leave-active {
-  transition: transform 500ms ease-in;
+  animation: slide-fade 500ms ease-out;
 }
-.v-leave-to {
+/* .v-leave-to {
   transform: translateX(300px) scale(50%);
-}
+} */
 .animate {
 	/* transform: translateX(-150px); */
 	animation: slide-fade 500ms ease-out both;
