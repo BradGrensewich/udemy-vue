@@ -9,10 +9,13 @@
 			<p v-if="paraIsVisible">This is only sometimes visible</p>
 		</Transition>
 	</div>
-	<base-modal @close="hideDialog" v-if="dialogIsVisible">
-		<p>This is a test dialog!</p>
-		<button @click="hideDialog">Close it!</button>
-	</base-modal>
+	
+		<base-modal @close="hideDialog" :open="dialogIsVisible">
+			<p>This is a test dialog!</p>
+			<button @click="hideDialog">Close it!</button>
+		</base-modal>
+	
+
 	<div class="container">
 		<button @click="showDialog">Show Dialog</button>
 	</div>
@@ -84,28 +87,29 @@ button:active {
 	border-radius: 12px;
 }
 
-/* .v-enter-from {
+.para-enter-from {
 	transform: translateX(-300px) scale(50%);
-} */
+}
 .para-enter-active {
-	animation: slide-fade 500ms ease-out forwards;
+	transition: transform 500ms;
 }
-/* .v-enter-to {
+.para-enter-to {
 	transform: translateX(0px) scale(100%);
-} */
-/* .v-leave-from {
-  transform: translateX(0px) scale(100%);
-} */
-.para-leave-active {
-  animation: slide-fade 500ms ease-out;
 }
-/* .v-leave-to {
-  transform: translateX(300px) scale(50%);
-} */
+.para-leave-from {
+	transform: translateX(0px) scale(100%);
+}
+.para-leave-active {
+	transition: transform 500ms;
+}
+.para-leave-to {
+	transform: translateX(300px) scale(50%);
+}
 .animate {
 	/* transform: translateX(-150px); */
 	animation: slide-fade 500ms ease-out both;
 }
+
 
 @keyframes slide-fade {
 	0% {
