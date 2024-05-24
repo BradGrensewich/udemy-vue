@@ -5,7 +5,16 @@
 	</div>
 	<div class="container">
 		<button @click="toggleParagraph">Toggle Paragraph</button>
-		<Transition name="para">
+		<Transition
+			name="para"
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+			@before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled">
 			<p v-if="paraIsVisible">This is only sometimes visible</p>
 		</Transition>
 	</div>
@@ -33,11 +42,52 @@ const dialogIsVisible = ref(false);
 const animatedBlock = ref(false);
 const paraIsVisible = ref(false);
 const usersAreVisible = ref(false);
+const enterInterval = ref(null)
+const leaveInterval = ref(null)
 
 function toggleParagraph() {
 	paraIsVisible.value = !paraIsVisible.value;
 }
-
+function beforeEnter(el) {
+  el.style.opacity = 0
+}
+function enter(el, done) {
+  let round = 1;
+  enterInterval.value = setInterval(() => {
+    el.style.opacity = round * 0.01;
+    round++
+    if (round > 100) {
+      clearInterval(enterInterval.value)
+      done()
+    }
+  }, 20)
+}
+function afterEnter() {
+  console.log('animation complete')
+}
+function beforeLeave(el) {
+  el.style.opacity = 1
+}
+function leave(el, done) {
+  let round = 100;
+  leaveInterval.value = setInterval(() => {
+    el.style.opacity = round * 0.01;
+    round--
+    if (round < 0) {
+      clearInterval(leaveInterval.value)
+      done()
+    }
+  }, 20)
+}
+function afterLeave() {
+  console.log('animation complete')
+}
+function enterCancelled() {
+  clearInterval(enterInterval.value)
+}
+function leaveCancelled() {
+  clearInterval(leaveInterval.value)
+}
 function showDialog() {
 	dialogIsVisible.value = true;
 }
@@ -98,41 +148,22 @@ button:active {
 	border-radius: 12px;
 }
 
-.para-enter-from {
-	transform: translateX(-300px) scale(50%);
-}
-.para-enter-active {
-	transition: transform 500ms;
-}
-.para-enter-to {
-	transform: translateX(0px) scale(100%);
-}
-.para-leave-from {
-	transform: translateX(0px) scale(100%);
-}
-.para-leave-active {
-	transition: transform 500ms;
-}
-.para-leave-to {
-	transform: translateX(300px) scale(50%);
-}
-
 .buttons-enter-from,
 .buttons-leave-to {
-  opacity: 0;
-  transform: scale(30%);
+	opacity: 0;
+	transform: scale(30%);
 }
 .buttons-enter-active {
-  transition: opacity 300ms ease-out, transform 300ms ease-out;
+	transition: opacity 300ms ease-out, transform 300ms ease-out;
 }
 .buttons-leave-active {
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
+	transition: opacity 300ms ease-in, transform 300ms ease-in;
 }
 
 .buttons-enter-to,
 .buttons-leave-from {
-  opacity: 1;
-  transform: scale(100%);
+	opacity: 1;
+	transform: scale(100%);
 }
 .animate {
 	/* transform: translateX(-150px); */
