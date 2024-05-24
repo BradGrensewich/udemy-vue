@@ -48,9 +48,13 @@ li {
 }
 .list-leave-active {
 	transition: all 500ms;
+	position: absolute;
 }
 .list-leave-to {
 	opacity: 0;
 	transform: translateX(100%);
+}
+.list-move {
+	transition: transform 500ms;
 }
 </style>
