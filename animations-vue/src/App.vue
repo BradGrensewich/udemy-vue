@@ -1,42 +1,9 @@
 <template>
-  <div class="container">
-    <UsersList/>
-  </div>
-	<div class="container">
-		<div class="block" :class="{ animate: animatedBlock }"></div>
-		<button @click="animateBlock">Animate</button>
-	</div>
-	<div class="container">
-		<button @click="toggleParagraph">Toggle Paragraph</button>
-		<Transition
-			name="para"
-      :css="false"
-			@before-enter="beforeEnter"
-			@enter="enter"
-			@after-enter="afterEnter"
-			@before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @enter-cancelled="enterCancelled"
-      @leave-cancelled="leaveCancelled">
-			<p v-if="paraIsVisible">This is only sometimes visible</p>
-		</Transition>
-	</div>
-	<div class="container">
-		<Transition name="buttons" mode="out-in">
-			<button v-if="!usersAreVisible" @click="showUsers">
-				Show Users
-			</button>
-			<button v-else @click="hideUsers">Hide Users</button>
-		</Transition>
-	</div>
-	<base-modal @close="hideDialog" :open="dialogIsVisible">
-		<p>This is a test dialog!</p>
-		<button @click="hideDialog">Close it!</button>
-	</base-modal>
-	<div class="container">
-		<button @click="showDialog">Show Dialog</button>
-	</div>
+  <RouterView v-slot="{ Component}">
+    <Transition name="buttons" mode="out-in">
+      <component :is="Component"/>
+    </Transition>    
+  </RouterView>
 </template>
 
 <script setup>
