@@ -7,6 +7,7 @@
 		<button @click="toggleParagraph">Toggle Paragraph</button>
 		<Transition
 			name="para"
+      :css="false"
 			@before-enter="beforeEnter"
 			@enter="enter"
 			@after-enter="afterEnter"
