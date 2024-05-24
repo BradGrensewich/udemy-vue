@@ -1,4 +1,7 @@
 <template>
+  <div class="container">
+    <UsersList/>
+  </div>
 	<div class="container">
 		<div class="block" :class="{ animate: animatedBlock }"></div>
 		<button @click="animateBlock">Animate</button>
@@ -37,6 +40,7 @@
 </template>
 
 <script setup>
+import UsersList from './components/UsersList.vue'
 import { ref } from 'vue';
 
 const dialogIsVisible = ref(false);
